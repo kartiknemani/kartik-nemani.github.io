@@ -16,7 +16,6 @@
             --color-border: #e2e8f0;
             
             /* BACKGROUND IMAGE SETTINGS */
-            /* Ensure 'background.png' is in your GitHub repo! */
             --color-bg-image: url('background.png'); 
             --bg-image-opacity: 0.1; /* 10% opacity = 90% transparent */
             
@@ -43,7 +42,7 @@
             z-index: 1;
         }
 
-        /* BACKGROUND IMAGE OVERLAY (Handles Transparency) */
+        /* BACKGROUND IMAGE OVERLAY */
         body::before {
             content: "";
             position: fixed;
@@ -55,7 +54,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: var(--bg-image-opacity); /* Controlled by variable above */
+            opacity: var(--bg-image-opacity);
             z-index: -1;
             pointer-events: none;
         }
@@ -111,8 +110,8 @@
         }
 
         .profile-image {
-            width: 150px;       /* Fixed width */
-            height: 200px;      /* Taller height (Portrait) */
+            width: 150px;
+            height: 200px;
             min-width: 150px;
             border-radius: 8px;
             background-color: #e2e8f0;
@@ -123,7 +122,7 @@
             color: var(--color-text-light);
             font-size: 0.9rem;
             text-align: center;
-            padding: 0;         /* Removed padding so image fills box */
+            padding: 0;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
@@ -131,7 +130,7 @@
         .profile-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;  /* Frames face perfectly in portrait box */
+            object-fit: cover;
         }
 
         .header-content {
@@ -302,7 +301,9 @@
             <li><a href="#research">Research</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#teaching">Teaching</a></li>
+            <li><a href="KARTIK NEMANI-C.V.pdf" target="_blank">CV</a></li>
             <li><a href="#news">News</a></li>
+            <li><a href="#service">Service</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -446,7 +447,7 @@
             <div class="news-item">
                 <strong>2026</strong>
                 <ol>
-                Excited to be a part of the 2026 cohort of the Postdoctoral Grant Writing Workshop at UAB!
+                    <li>Excited to be a part of the 2026 cohort of the Postdoctoral Grant Writing Workshop at UAB!</li>
                 </ol>
             </div>
 
@@ -455,16 +456,34 @@
                 <ol>
                     <li>The First extensive report on MXene-Zirconium-Diboride based UHTCs is published now in <strong>Advanced Science.</strong></li>
                     <li>Our Extensive Study on High Entropy MXenes is published now in <strong>Science.</strong></li>
-                    <li>Received the <strong>Global Web of Talents Silver</strong>award! Humbled!</li>
+                    <li>Received the <strong>Global Web of Talents Silver</strong> award! Humbled!</li>
                 </ol>
             </div>
 
             <div class="news-item">
                 <strong>2024</strong>
                 <ol>
-                Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&T 2024!
-            </ol>
+                    <li>Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&T 2024!</li>
+                </ol>
             </div>
+        </section>
+
+        <!-- Service Section -->
+        <section id="service">
+            <h2>Service</h2>
+            
+            <h3>Professional Service</h3>
+            <ul>
+                <li><strong>Reviewer:</strong> Journal Name 1, Journal Name 2, Journal Name 3</li>
+                <li><strong>Committee Member:</strong> Conference Name, Year</li>
+                <li><strong>Session Chair:</strong> Conference Name, Session Title, Year</li>
+            </ul>
+
+            <h3>University Service</h3>
+            <ul>
+                <li><strong>Mentor:</strong> Mentoring students in [Your Lab/Group]</li>
+                <li><strong>Member:</strong> Departmental Committee Name</li>
+            </ul>
         </section>
 
         <!-- Contact Section -->
