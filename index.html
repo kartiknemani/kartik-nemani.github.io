@@ -14,8 +14,12 @@
             --color-text: #2d3748;
             --color-text-light: #718096;
             --color-border: #e2e8f0;
-            --color-bg-image: linear-gradient(135deg, #f8f9fa 0%, #edf2f7 100%);
-            --bg-image-opacity: 0.8;
+            
+            /* BACKGROUND IMAGE SETTINGS */
+            /* Ensure 'background.png' is in your GitHub repo! */
+            --color-bg-image: url('background.png'); 
+            --bg-image-opacity: 0.1; /* 10% opacity = 90% transparent */
+            
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
         }
@@ -34,23 +38,24 @@
             font-family: var(--font-sans);
             color: var(--color-text);
             background-color: var(--color-bg);
-            background-image: var(--color-bg-image);
-            background-attachment: fixed;
             line-height: 1.6;
             position: relative;
+            z-index: 1;
         }
 
-        /* Optional background image overlay */
-        body.with-bg-image::before {
-            content: attr(data-bg-image);
+        /* BACKGROUND IMAGE OVERLAY (Handles Transparency) */
+        body::before {
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-image: var(--color-bg-image);
             background-size: cover;
             background-position: center;
-            opacity: var(--bg-image-opacity);
+            background-repeat: no-repeat;
+            opacity: var(--bg-image-opacity); /* Controlled by variable above */
             z-index: -1;
             pointer-events: none;
         }
@@ -105,9 +110,9 @@
             gap: 2rem;
         }
 
-.profile-image {
-            width: 150px;
-            height: 200px;
+        .profile-image {
+            width: 150px;       /* Fixed width */
+            height: 200px;      /* Taller height (Portrait) */
             min-width: 150px;
             border-radius: 8px;
             background-color: #e2e8f0;
@@ -118,20 +123,15 @@
             color: var(--color-text-light);
             font-size: 0.9rem;
             text-align: center;
-            padding: 1rem;
+            padding: 0;         /* Removed padding so image fills box */
             overflow: hidden;
-        }
-
-}
-
-}
-
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .profile-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;  /* Frames face perfectly in portrait box */
         }
 
         .header-content {
@@ -261,9 +261,9 @@
             }
 
             .profile-image {
-                width: 120px;
-                height: 120px;
-                min-width: 120px;
+                width: 150px;
+                height: 200px;
+                min-width: 150px;
             }
 
             h1 {
