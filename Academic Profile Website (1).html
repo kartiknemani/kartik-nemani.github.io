@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinivasa Kartik Nemani - Academic Profile</title>
+    <style>
+        :root {
+            --color-primary: #2d3748;
+            --color-secondary: #4a5568;
+            --color-accent: #ff6b4a;
+            --color-accent-hover: #ff5a33;
+            --color-bg: #f8f9fa;
+            --color-text: #2d3748;
+            --color-text-light: #718096;
+            --color-border: #e2e8f0;
+            --color-bg-image: linear-gradient(135deg, #f8f9fa 0%, #edf2f7 100%);
+            --bg-image-opacity: 0.8;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            background-image: var(--color-bg-image);
+            background-attachment: fixed;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Optional background image overlay */
+        body.with-bg-image::before {
+            content: attr(data-bg-image);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: var(--bg-image-opacity);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 249, 250, 0.97);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            line-height: 1.8;
+        }
+
+        /* Header Section */
+        .header {
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            min-width: 150px;
+            border-radius: 8px;
+            background-color: #e2e8f0;
+            border: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            margin: 1.5rem 0 0.5rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* Links */
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: var(--color-accent-hover);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
+
+        /* List Styles */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Highlights */
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+        }
+
+        /* News/Updates */
+        .news-item {
+            padding: 1rem;
+            background-color: #f9fafb;
+            border-left: 3px solid var(--color-accent);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .news-item strong:first-child {
+    display: inline;          /* Keeps it on the same line */
+    margin-right: 1rem;       /* Adds space between Year and Text */
+    color: var(--color-accent);
+}
+;
+        }
+
+        /* Awards */
+        .award {
+            padding: 1rem;
+            background-color: #fef3c7;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border-left: 3px solid #f59e0b;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(237, 242, 247, 0.9);
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-light);
+            margin-top: 4rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                min-width: 120px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            main {
+                padding: 7rem 1rem 4rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            nav {
+                position: relative;
+            }
+
+            main {
+                padding: 2rem;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#teaching">Teaching</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Header -->
+        <section class="header" id="about">
+            <div class="profile-image">
+                <img "C:\Users\karti\Downloads\Self-casual.png">
+            </div>
+            <div class="header-content">
+                <h1> Srinivasa Kartik Nemani</h1>
+                <p class="subtitle">Post-Doctoral Fellow, University of Alabama at Birmingham</p>
+                
+                <p>
+                    I am a <strong style="color: var(--color-accent);">Fellow</strong> in <strong>Department of Mechanical and Materials Engineering</strong> at 
+                    <strong> The University of Alabama at Birmingham</strong>.
+                </p>
+
+            <p>
+                 
+                I completed my Ph.D. at Purdue University, advised by <strong style="color: var(--color-accent);">Dr. Babak Anasori</strong>.
+
+<p>
+                 
+                Earlier, I earned my Masters in mechanical engineering from the University of Toledo advised by <strong style="color: var(--color-accent);">Dr. Hossein Sojoudi</strong>.
+
+            </p>
+                                
+        </section>
+
+        <!-- Research Section -->
+        <section id="research">
+            <h2>Research Interests</h2>
+            
+            <p>
+                I am broadly interested in <strong> Materials for Extremes </strong> and <strong> Polymer Derived Ceramics</strong>, their applications to <strong> Nuclear, Aerospace, Energy</strong>,
+                and <strong>MXenes</strong>.
+            </p>
+
+            <p>
+                My long-term research goal is to combine atomistic design of advanced layered ceramic materials with polymer derived precursors for developing advanced structures, by leveraging advanced manufacturing methods.
+            </p>
+
+            <h3>Current Research Thrusts</h3>
+            <ul>
+                <li><strong>Functionally Graded Materials:</strong> Developing compositionally and microstructurally graded ceramic architectures that enable tailored thermal, mechanical, and oxidation‑resistant responses for extreme‑environment applications, with emphasis on integrating high‑entropy phases and engineered interfaces.</li>
+              
+
+  <li><strong>Materials for Nuclear Extremes:</strong> Designing and evaluating radiation‑tolerant ceramics and ceramic‑matrix composites through controlled defect engineering, high‑temperature stability studies, and microstructure‑by‑design frameworks to support next‑generation fission and fusion systems</li>
+                
+
+<li><strong> 2D layered Ceramics and Polymer Derived Hard Materials:</strong> Advancing synthesis and integration of MXenes, layered carbides, and high‑entropy 2D systems into polymer‑derived ceramic platforms to create ultrahigh‑temperature, oxidation‑resistant, and mechanically robust hybrid materials with tunable interfacial chemistry.</li>
+
+
+            </ul>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications">
+            <h2>Selected Publications</h2>
+            
+            <p>
+                For a complete list, please see 
+                <a href="https://scholar.google.com/citations?user=vclv4OUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>.
+
+            </p>
+
+            <h3>Recent Papers</h3>
+            <ul>
+                <li>
+                    <strong>Order‑to‑disorder transition due to entropy in layered and 2D carbides</strong><br>
+                    BC Wyatt, Y Yang, PP Michałowski,... (10) S.K.Nemani, et al.
+
+<em>Science, 2025</em>. 
+                    [<a href="https://drive.google.com/drive/u/1/folders/1S_HgvroLi8yDsWnmAQbr3zQSg0MgAe7h">PDF</a>]
+                </li>
+                <li>
+                    <strong>MXene‑derived TiB₂ formation in B₄C at high temperatures </strong><br>
+                    N Chandran BS, A Thakur, SK Nemani, N Moharana, CPH Scott, et al. <em>Advanced Composites and Hybrid Materials, 2025 </em>. 
+                    [<a href="https://link.springer.com/content/pdf/10.1007/s42114-025-01387-x.pdf">PDF</a>]
+                </li>
+                <li>
+                    <strong>Ti₃C₂Tₓ MXene–Zirconium Diboride Based Ultra‑High Temperature Ceramics </strong><br>
+                    SK Nemani, N Gilli, S Goldy, A Kumar, Y Im, AJ Vorhees, BC Wyatt, et al. <em>Advanced Science, 2025</em>. 
+                    [<a href="https://advanced.onlinelibrary.wiley.com/doi/pdf/10.1002/advs.202500487">PDF</a>]
+                </li>
+            </ul>
+        </section>
+
+        <!-- Teaching Section -->
+        <section id="teaching">
+            <h2>Teaching</h2>
+
+            <h3>Courses</h3>
+            <ul>
+                <li><strong>Course Name 1</strong> (Semester) - Description</li>
+                <li><strong>Course Name 2</strong> (Semester) - Description</li>
+            </ul>
+
+            <h3>Tutorials & Workshops</h3>
+            <ul>
+                <li><strong>Tutorial Title 1</strong> - Venue, Year</li>
+                <li><strong>Tutorial Title 2</strong> - Venue, Year</li>
+            </ul>
+        </section>
+
+        <!-- Awards Section -->
+        <section>
+            <h2>Selected Awards and Honors</h2>
+
+	    <div class="award">
+                <strong> Silver Award</strong><br>
+                Web of Talents, 2025. 
+                <a href="#">Read more</a> <br>
+
+            
+            <div class="award">
+                <strong>Elite 50 Award</strong><br>
+                Purdue University, 2024. 
+                <a href="#">Read more</a>
+            </div>
+
+            <div class="award">
+                <strong>Basic Sciences Division GEMS-Diamond Award</strong><br>
+                American Ceramic Society (ACerS), 2024.
+            </div>
+
+
+  <div class="award">
+                <strong>Outstanding Masters Thesis</strong><br>
+                University of Toledo, 2018.
+</div> 
+
+        </section>
+
+        <!-- Talks Section -->
+        <section>
+            <h2>Recent and Upcoming Talks</h2>
+            
+            <p>
+                <strong>Invited Speaker</strong> Young Investigator Forum, ICACC (International Conference on Advanced Ceramics and Composites, January 2025.<br>
+                <strong>Invited Speaker</strong> National Science Day Gayatri Vidya Parishad College of Engineering Visakhapatnam, India, February 2024.<br>
+                <strong>Invited Speaker</strong> Andhra University, College of Mechanical Engineering, February 2024. <br>
+            </p>
+        </section>
+
+        <!-- News Section -->
+        <section id="news">
+            <h2>News & Updates</h2>
+
+            <div class="news-item">
+                <strong>2026</strong>
+                Excited to be a part of the 2026 cohort of the Postdoctoral Grant Writing Workshop at UAB!
+            </div>
+
+            <div class="news-item">
+                <strong>2025</strong>
+                
+
+1. The First extensive report on MXene-Zirconium-Diboride based UHTCs is published now in <strong>Advanced Science.</strong>
+
+<br>
+<br>
+
+2. Our Extensive Study on High Entropy MXenes is published now in <strong>Science.</strong>
+
+<br>
+<br>
+
+3. Received the <strong>Global Web of Talents Silver </strong> award! Humbled!
+ </div>
+
+
+            <div class="news-item">
+                <strong>2024</strong>
+                 Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&T 2024!
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+
+            <p>
+                <strong>Email:</strong> 
+                <a href="mailto:nemanis@uab.edu">nemanis@uab.edu</a>
+            </p>
+
+            <p>
+                <strong>Office:</strong> Gorrie hall GH5201,University of Alabama at Birmingham
+            </p>
+
+            <p>
+                <strong>Address:</strong><br>
+                Mechanical and Materials Engineering<br>
+                University of Alabama<br>
+                Birmimgham, AL, 35210           </p>
+
+            <p>
+                <strong>Links:</strong><br>
+                <a href="https://scholar.google.com/citations?user=vclv4OUAAAAJ&hl=en&oi=ao">Google Scholar</a> | 
+                <a href="https://www.scopus.com/authid/detail.uri?authorId=57201860816">Scopus</a> | 
+                <a href="https://www.linkedin.com/in/kartik-nemani/">LinkedIn</a>
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Kartik Nemani. All rights reserved.</p>
+        <p>Last updated: January 2026</p>
+    </footer>
+</body>
+</html>
