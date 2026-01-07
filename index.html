@@ -1,26 +1,3 @@
-The code you provided has a few significant HTML syntax errors that are likely breaking the page structure and possibly causing the deployment issue (or at least making it look broken).
-
-However, **a 404 error on GitHub Pages usually means the file isn't found, not that the code is broken.**
-
-### **Immediate Fix for the 404 Error:**
-1.  **Is your repository PUBLIC?** If it is Private, GitHub Pages requires a paid Pro account. Go to Settings > General > Hazard Zone > Change visibility to Public.
-2.  **Is the file named EXACTLY `index.html`?** Double-check. Not `Index.html` or `index`.
-3.  **Is Pages enabled?** Go to Settings > Pages > Source: Deploy from Branch > Branch: `main` > Save.
-
-***
-
-### **Fixing Your HTML Code (Critical)**
-Your code has broken tags that will mess up the layout. I have fixed them below.
-
-**Key Fixes Made:**
-1.  **Closed the `strong` tag CSS:** There was a stray `;` in your CSS block.
-2.  **Closed the Header Section:** You were missing a `</div>` for `header-content`.
-3.  **Fixed the Awards Section:** You had an unclosed `<div class="award">` (Silver Award) that was swallowing the other awards.
-4.  **Fixed News List:** The numbered list in News 2025 was formatted weirdly; I cleaned it up.
-
-**Copy-Paste This Clean Version into your `index.html`:**
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,21 +105,18 @@ Your code has broken tags that will mess up the layout. I have fixed them below.
             gap: 2rem;
         }
 
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            min-width: 150px;
-            border-radius: 8px;
-            background-color: #e2e8f0;
-            border: 2px solid var(--color-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-light);
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 1rem;
-            overflow: hidden;
+ .profile-image {
+    width: 250px;            /* Increased width */
+    height: 350px;           /* Increased height for portrait shape */
+    min-width: 250px;        /* Ensures it doesn't shrink */
+    border-radius: 8px;      /* Slight rounded corners (or set to 0 for sharp corners) */
+    background-color: #e2e8f0;
+    border: 4px solid #fff;  /* Optional: Adds a nice white frame */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: Adds a subtle shadow for depth */
+    overflow: hidden;
+    flex-shrink: 0;          /* Prevents it from shrinking on smaller screens */
+}
+
         }
 
         .profile-image img {
@@ -512,6 +486,3 @@ Your code has broken tags that will mess up the layout. I have fixed them below.
     </footer>
 </body>
 </html>
-```
-
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/35794811/44aacf5a-031d-4f58-ba88-90ccea13750d/image.jpg)
