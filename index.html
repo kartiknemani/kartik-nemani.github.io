@@ -1,3 +1,26 @@
+The code you provided has a few significant HTML syntax errors that are likely breaking the page structure and possibly causing the deployment issue (or at least making it look broken).
+
+However, **a 404 error on GitHub Pages usually means the file isn't found, not that the code is broken.**
+
+### **Immediate Fix for the 404 Error:**
+1.  **Is your repository PUBLIC?** If it is Private, GitHub Pages requires a paid Pro account. Go to Settings > General > Hazard Zone > Change visibility to Public.
+2.  **Is the file named EXACTLY `index.html`?** Double-check. Not `Index.html` or `index`.
+3.  **Is Pages enabled?** Go to Settings > Pages > Source: Deploy from Branch > Branch: `main` > Save.
+
+***
+
+### **Fixing Your HTML Code (Critical)**
+Your code has broken tags that will mess up the layout. I have fixed them below.
+
+**Key Fixes Made:**
+1.  **Closed the `strong` tag CSS:** There was a stray `;` in your CSS block.
+2.  **Closed the Header Section:** You were missing a `</div>` for `header-content`.
+3.  **Fixed the Awards Section:** You had an unclosed `<div class="award">` (Silver Award) that was swallowing the other awards.
+4.  **Fixed News List:** The numbered list in News 2025 was formatted weirdly; I cleaned it up.
+
+**Copy-Paste This Clean Version into your `index.html`:**
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -215,11 +238,9 @@
         }
 
         .news-item strong:first-child {
-    display: inline;          /* Keeps it on the same line */
-    margin-right: 1rem;       /* Adds space between Year and Text */
-    color: var(--color-accent);
-}
-;
+            display: inline;
+            margin-right: 1rem;
+            color: var(--color-accent);
         }
 
         /* Awards */
@@ -304,28 +325,26 @@
     <main>
         <!-- Header -->
         <section class="header" id="about">
-           <div class="profile-image">
-    <img src="Self-casual.png" alt="Profile Picture">
-</div>
+            <div class="profile-image">
+                <img src="Self-casual.png" alt="Profile Picture">
+            </div>
             <div class="header-content">
-                <h1> Srinivasa Kartik Nemani</h1>
+                <h1>Srinivasa Kartik Nemani</h1>
                 <p class="subtitle">Post-Doctoral Fellow, University of Alabama at Birmingham</p>
                 
                 <p>
-                    I am a <strong style="color: var(--color-accent);">Fellow</strong> in <strong>Department of Mechanical and Materials Engineering</strong> at 
-                    <strong> The University of Alabama at Birmingham</strong>.
+                    I am a <strong style="color: var(--color-accent);">Fellow</strong> in the <strong>Department of Mechanical and Materials Engineering</strong> at 
+                    <strong>The University of Alabama at Birmingham</strong>.
                 </p>
 
-            <p>
-                 
-                I completed my Ph.D. at Purdue University, advised by <strong style="color: var(--color-accent);">Dr. Babak Anasori</strong>.
+                <p>
+                    I completed my Ph.D. at Purdue University, advised by <strong style="color: var(--color-accent);">Dr. Babak Anasori</strong>.
+                </p>
 
-<p>
-                 
-                Earlier, I earned my Masters in mechanical engineering from the University of Toledo advised by <strong style="color: var(--color-accent);">Dr. Hossein Sojoudi</strong>.
-
-            </p>
-                                
+                <p>
+                    Earlier, I earned my Masters in mechanical engineering from the University of Toledo advised by <strong style="color: var(--color-accent);">Dr. Hossein Sojoudi</strong>.
+                </p>
+            </div>
         </section>
 
         <!-- Research Section -->
@@ -333,7 +352,7 @@
             <h2>Research Interests</h2>
             
             <p>
-                I am broadly interested in <strong> Materials for Extremes </strong> and <strong> Polymer Derived Ceramics</strong>, their applications to <strong> Nuclear, Aerospace, Energy</strong>,
+                I am broadly interested in <strong>Materials for Extremes</strong> and <strong>Polymer Derived Ceramics</strong>, their applications to <strong>Nuclear, Aerospace, Energy</strong>,
                 and <strong>MXenes</strong>.
             </p>
 
@@ -344,14 +363,8 @@
             <h3>Current Research Thrusts</h3>
             <ul>
                 <li><strong>Functionally Graded Materials:</strong> Developing compositionally and microstructurally graded ceramic architectures that enable tailored thermal, mechanical, and oxidation‑resistant responses for extreme‑environment applications, with emphasis on integrating high‑entropy phases and engineered interfaces.</li>
-              
-
-  <li><strong>Materials for Nuclear Extremes:</strong> Designing and evaluating radiation‑tolerant ceramics and ceramic‑matrix composites through controlled defect engineering, high‑temperature stability studies, and microstructure‑by‑design frameworks to support next‑generation fission and fusion systems</li>
-                
-
-<li><strong> 2D layered Ceramics and Polymer Derived Hard Materials:</strong> Advancing synthesis and integration of MXenes, layered carbides, and high‑entropy 2D systems into polymer‑derived ceramic platforms to create ultrahigh‑temperature, oxidation‑resistant, and mechanically robust hybrid materials with tunable interfacial chemistry.</li>
-
-
+                <li><strong>Materials for Nuclear Extremes:</strong> Designing and evaluating radiation‑tolerant ceramics and ceramic‑matrix composites through controlled defect engineering, high‑temperature stability studies, and microstructure‑by‑design frameworks to support next‑generation fission and fusion systems</li>
+                <li><strong>2D layered Ceramics and Polymer Derived Hard Materials:</strong> Advancing synthesis and integration of MXenes, layered carbides, and high‑entropy 2D systems into polymer‑derived ceramic platforms to create ultrahigh‑temperature, oxidation‑resistant, and mechanically robust hybrid materials with tunable interfacial chemistry.</li>
             </ul>
         </section>
 
@@ -362,25 +375,22 @@
             <p>
                 For a complete list, please see 
                 <a href="https://scholar.google.com/citations?user=vclv4OUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>.
-
             </p>
 
             <h3>Recent Papers</h3>
             <ul>
                 <li>
                     <strong>Order‑to‑disorder transition due to entropy in layered and 2D carbides</strong><br>
-                    BC Wyatt, Y Yang, PP Michałowski,... (10) S.K.Nemani, et al.
-
-<em>Science, 2025</em>. 
-                    [<a href="2025-order-to-disorder-transition-due-to-entropy-in-layered-and-2d-carbides.pdf"target="_blank">PDF</a>]
+                    BC Wyatt, Y Yang, PP Michałowski,... (10) S.K.Nemani, et al. <em>Science, 2025</em>. 
+                    [<a href="2025-order-to-disorder-transition-due-to-entropy-in-layered-and-2d-carbides.pdf" target="_blank">PDF</a>]
                 </li>
                 <li>
-                    <strong>MXene‑derived TiB₂ formation in B₄C at high temperatures </strong><br>
-                    N Chandran BS, A Thakur, SK Nemani, N Moharana, CPH Scott, et al. <em>Advanced Composites and Hybrid Materials, 2025 </em>. 
+                    <strong>MXene‑derived TiB₂ formation in B₄C at high temperatures</strong><br>
+                    N Chandran BS, A Thakur, SK Nemani, N Moharana, CPH Scott, et al. <em>Advanced Composites and Hybrid Materials, 2025</em>. 
                     [<a href="https://link.springer.com/content/pdf/10.1007/s42114-025-01387-x.pdf">PDF</a>]
                 </li>
                 <li>
-                    <strong>Ti₃C₂Tₓ MXene–Zirconium Diboride Based Ultra‑High Temperature Ceramics </strong><br>
+                    <strong>Ti₃C₂Tₓ MXene–Zirconium Diboride Based Ultra‑High Temperature Ceramics</strong><br>
                     SK Nemani, N Gilli, S Goldy, A Kumar, Y Im, AJ Vorhees, BC Wyatt, et al. <em>Advanced Science, 2025</em>. 
                     [<a href="https://advanced.onlinelibrary.wiley.com/doi/pdf/10.1002/advs.202500487">PDF</a>]
                 </li>
@@ -408,11 +418,11 @@
         <section>
             <h2>Selected Awards and Honors</h2>
 
-	    <div class="award">
-                <strong> Silver Award</strong><br>
+            <div class="award">
+                <strong>Silver Award</strong><br>
                 Web of Talents, 2025. 
-                <a href="#">Read more</a> <br>
-
+                <a href="#">Read more</a>
+            </div>
             
             <div class="award">
                 <strong>Elite 50 Award</strong><br>
@@ -425,12 +435,10 @@
                 American Ceramic Society (ACerS), 2024.
             </div>
 
-
-  <div class="award">
+            <div class="award">
                 <strong>Outstanding Masters Thesis</strong><br>
                 University of Toledo, 2018.
-</div> 
-
+            </div>
         </section>
 
         <!-- Talks Section -->
@@ -440,7 +448,7 @@
             <p>
                 <strong>Invited Speaker</strong> Young Investigator Forum, ICACC (International Conference on Advanced Ceramics and Composites, January 2025.<br>
                 <strong>Invited Speaker</strong> National Science Day Gayatri Vidya Parishad College of Engineering Visakhapatnam, India, February 2024.<br>
-                <strong>Invited Speaker</strong> Andhra University, College of Mechanical Engineering, February 2024. <br>
+                <strong>Invited Speaker</strong> Andhra University, College of Mechanical Engineering, February 2024.
             </p>
         </section>
 
@@ -455,26 +463,16 @@
 
             <div class="news-item">
                 <strong>2025</strong>
-                
-
-1. The First extensive report on MXene-Zirconium-Diboride based UHTCs is published now in <strong>Advanced Science.</strong>
-
-<br>
-<br>
-
-2. Our Extensive Study on High Entropy MXenes is published now in <strong>Science.</strong>
-
-<br>
-<br>
-
-3. Received the <strong>Global Web of Talents Silver </strong> award! Humbled!
- </div>
-
+                <ol>
+                    <li>The First extensive report on MXene-Zirconium-Diboride based UHTCs is published now in <strong>Advanced Science.</strong></li>
+                    <li>Our Extensive Study on High Entropy MXenes is published now in <strong>Science.</strong></li>
+                    <li>Received the <strong>Global Web of Talents Silver</strong> award! Humbled!</li>
+                </ol>
+            </div>
 
             <div class="news-item">
                 <strong>2024</strong>
-                 Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&T 2024!
-
+                Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&T 2024!
             </div>
         </section>
 
@@ -488,14 +486,15 @@
             </p>
 
             <p>
-                <strong>Office:</strong> Gorrie hall GH5201,University of Alabama at Birmingham
+                <strong>Office:</strong> Gorrie hall GH5201, University of Alabama at Birmingham
             </p>
 
             <p>
                 <strong>Address:</strong><br>
                 Mechanical and Materials Engineering<br>
                 University of Alabama<br>
-                Birmimgham, AL, 35210           </p>
+                Birmimgham, AL, 35210
+            </p>
 
             <p>
                 <strong>Links:</strong><br>
@@ -513,3 +512,6 @@
     </footer>
 </body>
 </html>
+```
+
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/35794811/44aacf5a-031d-4f58-ba88-90ccea13750d/image.jpg)
