@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srinivasa Kartik Nemani - Media</title>
+    <style>
+        /* Reusing your exact styles from the landing page for consistency */
+        :root {
+            --color-primary: #2d3748;
+            --color-secondary: #4a5568;
+            --color-accent: #ff6b4a;
+            --color-accent-hover: #ff5a33;
+            --color-bg: #f8f9fa;
+            --color-text: #2d3748;
+            --color-text-light: #718096;
+            --color-border: #e2e8f0;
+            --color-bg-image: url('background.png'); 
+            --bg-image-opacity: 0.1;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--color-bg-image);
+            background-size: cover;
+            background-position: center;
+            opacity: var(--bg-image-opacity);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 249, 250, 0.97);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover { color: var(--color-accent); }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            line-height: 1.8;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--color-primary); }
+        h2 { font-size: 1.5rem; color: var(--color-primary); margin: 2rem 0 1rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--color-border); }
+        h3 { font-size: 1.1rem; color: var(--color-text); margin: 1.5rem 0 0.5rem 0; font-weight: 600; }
+        p { margin-bottom: 1rem; color: var(--color-text); }
+        a { color: var(--color-accent); text-decoration: none; transition: all 0.3s ease; font-weight: 500; }
+        a:hover { color: var(--color-accent-hover); text-decoration: underline; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; }
+
+        .media-item {
+            padding: 1.5rem;
+            background-color: #fff;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .date-tag {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            background: #edf2f7;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: rgba(237, 242, 247, 0.9);
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-light);
+            margin-top: 4rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        @media (max-width: 768px) {
+            nav ul { gap: 1rem; }
+            main { padding: 7rem 1rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Links back to main page sections or current page) -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#coverage">Coverage</a></li>
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Page Header -->
+        <section class="header">
+            <div class="header-content">
+                <h1>Media & Outreach</h1>
+                <p>Highlights of research coverage and academic philosophy.</p>
+            </div>
+        </section>
+
+        <!-- Coverage Section -->
+        <section id="coverage">
+            <h2>Coverage</h2>
+            <p>Recent media mentions, press releases, and highlighted articles featuring our research group.</p>
+            
+            <div class="media-item">
+                <span class="date-tag">January 2025</span>
+                <h3>Breakthrough in Ultra-High Temperature Ceramics</h3>
+                <p>
+                    Our recent work on Ti₃C₂Tₓ MXene–Zirconium Diboride composites was featured in <em>Advanced Science News</em>. The article discusses how these new hybrid materials can withstand extreme re-entry conditions.
+                </p>
+                <a href="#" target="_blank">Read the full story &rarr;</a>
+            </div>
+
+            <div class="media-item">
+                <span class="date-tag">October 2024</span>
+                <h3>GEMS Diamond Award Recognition</h3>
+                <p>
+                    Coverage by the American Ceramic Society regarding the Graduate Excellence in Materials Science (GEMS) awards at MS&T 2024.
+                </p>
+                <a href="#" target="_blank">View announcement &rarr;</a>
+            </div>
+
+            <div class="media-item">
+                <span class="date-tag">February 2024</span>
+                <h3>Guest Lecture at Andhra University</h3>
+                <p>
+                    Highlights from the invited talk series in Visakhapatnam, discussing the future of polymer-derived ceramics in energy applications.
+                </p>
+                <a href="#" target="_blank">Watch recording &rarr;</a>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy">
+            <h2>Philosophy</h2>
+            
+            <h3>Research Philosophy</h3>
+            <p>
+                My research is driven by the conviction that the next generation of structural systems will not come from a single material class, but from the <strong>atomistic integration</strong> of distinct material families. 
+            </p>
+            <p>
+                I believe in a "microstructure-by-design" approach, where we tailor interfaces at the nanoscale to solve macro-scale challenges in nuclear and aerospace engineering. By bridging the gap between <a href="https://en.wikipedia.org/wiki/MXenes" target="_blank">2D MXenes</a> and traditional bulk ceramics, we can unlock properties previously thought mutually exclusive.
+            </p>
+
+            <h3>Teaching Philosophy</h3>
+            <p>
+                In the classroom, I strive to demystify complex concepts like thermodynamics and nanotechnology by connecting them to tangible, real-world extremes. 
+            </p>
+            <ul>
+                <li><strong>Active Learning:</strong> Utilizing tools like the MAX Calculator to let students predict material properties.</li>
+                <li><strong>Inclusivity:</strong> Fostering an environment where diverse perspectives drive innovation in materials science.</li>
+                <li><strong>Mentorship:</strong> Guiding students not just in technical skills, but in scientific communication and ethical research practices.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Kartik Nemani. All rights reserved.</p>
+        <p><a href="index.html">Back to Home</a></p>
+    </footer>
+</body>
+</html>
