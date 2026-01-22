@@ -75,6 +75,50 @@
             pointer-events: none;
         }
 
+        /* Let it Snow Button Styles */
+        .snow-btn {
+            position: fixed;
+            top: 0.8rem;
+            right: 2rem;
+            z-index: 2000;
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .snow-btn.active {
+            background-color: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        /* Snowflake styling - Greyish with shadow for visibility on light backgrounds */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #cbd5e0; /* Light grey */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Subtle dark shadow */
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) translateX(30px);
+            }
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -270,6 +314,13 @@
         @media (max-width: 768px) {
             nav ul {
                 gap: 1rem;
+                justify-content: flex-start;
+            }
+
+            .snow-btn {
+                top: auto;
+                bottom: 1rem;
+                right: 1rem;
             }
 
             .header {
@@ -277,18 +328,8 @@
                 align-items: flex-start;
             }
 
-            .profile-image {
-                width: 150px;
-                height: 200px;
-                min-width: 150px;
-            }
-
             h1 {
                 font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.3rem;
             }
 
             main {
@@ -298,10 +339,9 @@
 
         /* Print styles */
         @media print {
-            nav {
-                position: relative;
+            nav, .snow-btn {
+                display: none;
             }
-
             main {
                 padding: 2rem;
                 margin-top: 0;
@@ -310,14 +350,18 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    
+    <button id="toggleSnowBtn" class="snow-btn" onclick="toggleSnow()">
+        <span>❄</span> Let it snow
+    </button>
+
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#research">Research</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#teaching">Teaching</a></li>
-            <li><a "href="KARTIK NEMANI- C.V..pdf" target="_blank">CV</a></li>
+            <li><a href="KARTIK NEMANI- C.V..pdf" target="_blank">CV</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#service">Service</a></li>
             <li><a href="media.html" target="_blank">Media</a></li>
@@ -326,7 +370,6 @@
     </nav>
 
     <main>
-        <!-- Header -->
         <section class="header" id="about">
             <div class="profile-image">
                 <img src="Self-casual.png" alt="Profile Picture">
@@ -334,7 +377,7 @@
             <div class="header-content">
                 <h1>Srinivasa Kartik Nemani</h1>
                 <p class="subtitle">Post-Doctoral Fellow, University of Alabama at Birmingham</p>
-                
+                <br>
                 <p>
                     I am a <strong style="color: var(--color-accent);">Fellow</strong> in the <strong>Department of Mechanical and Materials Engineering</strong> at 
                     <strong>The University of Alabama at Birmingham</strong>.
@@ -352,10 +395,9 @@
             </div>
         </section>
 
-        <!-- Research Section -->
         <section id="research">
             <h2>Research Interests</h2>
-            
+            <br>
             <p>
                 I am broadly interested in <strong>Materials for Extremes</strong>, <strong>Layered Ceramics</strong> and <strong>Polymer Derived Ceramics</strong>, their applications to <strong>Nuclear, Aerospace</strong>, & <strong>Energy</strong>.
             </p>
@@ -372,10 +414,9 @@
             </ul>
         </section>
 
-        <!-- Publications Section -->
         <section id="publications">
             <h2>Selected Publications</h2>
-            
+            <br>
             <p>
                 For a complete list, please see 
                 <a href="https://scholar.google.com/citations?user=vclv4OUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>.
@@ -384,71 +425,61 @@
             <h3>Recent Papers</h3>
             <ul>
                 <li>
-                    <strong>Order‑to‑disorder transition due to entropy in layered and 2D carbides</strong><br>
-                    BC Wyatt, Y Yang, PP Michałowski,... (10) S.K.Nemani, et al. <em>Science, 2025</em>. 
+                    <strong>Order‑to‑disorder transition due to entropy in layered and 2D carbides</strong>
+                    <br>BC Wyatt, Y Yang, PP Michałowski,... (10) S.K.Nemani, et al. <em>Science, 2025</em>. 
                     [<a href="2025-order-to-disorder-transition-due-to-entropy-in-layered-and-2d-carbides.pdf" target="_blank">PDF</a>]
                 </li>
                 <li>
-                    <strong>MXene‑derived TiB₂ formation in B₄C at high temperatures</strong><br>
-                    N Chandran BS, A Thakur, SK Nemani, N Moharana, CPH Scott, et al. <em>Advanced Composites and Hybrid Materials, 2025</em>. 
+                    <strong>MXene‑derived TiB₂ formation in B₄C at high temperatures</strong>
+                    <br>N Chandran BS, A Thakur, SK Nemani, N Moharana, CPH Scott, et al. <em>Advanced Composites and Hybrid Materials, 2025</em>. 
                     [<a href="https://link.springer.com/content/pdf/10.1007/s42114-025-01387-x.pdf" target="_blank">PDF</a>]
                 </li>
                 <li>
-                    <strong>Ti₃C₂Tₓ MXene–Zirconium Diboride Based Ultra‑High Temperature Ceramics</strong><br>
-                    SK Nemani, N Gilli, S Goldy, A Kumar, Y Im, AJ Vorhees, BC Wyatt, et al. <em>Advanced Science, 2025</em>. 
+                    <strong>Ti₃C₂Tₓ MXene–Zirconium Diboride Based Ultra‑High Temperature Ceramics</strong>
+                    <br>SK Nemani, N Gilli, S Goldy, A Kumar, Y Im, AJ Vorhees, BC Wyatt, et al. <em>Advanced Science, 2025</em>. 
                     [<a href="https://advanced.onlinelibrary.wiley.com/doi/pdf/10.1002/advs.202500487" target="_blank">PDF</a>]
                 </li>
             </ul>
         </section>
 
-        <!-- Teaching Section -->
         <section id="teaching">
             <h2>Teaching</h2>
-
             <h3>Courses</h3>
             <ul>
                 <li><strong>MIME 3440 Heat Transfer</strong> (Fall 2017, Summer 2018)</li>
                 <li><strong>MIME 341 Thermodynamics II</strong> (Spring 2018)</li>
                 <li><strong>ME 482 Introduction to Nanotechnology</strong> (Fall 2023)</li>
             </ul>
-
             <h3>Tutorials & Workshops</h3>
             <ul>
                 <li><strong> ME 523 Nanosystems Principles-Scanning Electron Microscopy</strong>-Indianapolis, Spring 2024</li>
             </ul>
         </section>
 
-        <!-- Awards Section -->
         <section>
             <h2>Selected Awards and Honors</h2>
-
             <div class="award">
-                <strong>Silver Award</strong><br>
-                Web of Talents, 2025. 
+                <strong>Silver Award</strong>
+                <br>Web of Talents, 2025. 
                 <a href="https://www.linkedin.com/posts/mariolan_ieee-iedm-stem-activity-7303170807201943552-Jp88/?rcm=ACoAAAn8ZpIBTMO7ODh23iT2jwqDo_6-azVNZFM">Read more</a>
             </div>
-            
             <div class="award">
-                <strong>Elite 50 Award</strong><br>
-                Purdue University, 2024. 
+                <strong>Elite 50 Award</strong>
+                <br>Purdue University, 2024. 
                 *<a href="#" target="_blank">Read more</a>
             </div>
-
             <div class="award">
-                <strong>Basic Sciences Division GEMS-Diamond Award</strong><br>
-                American Ceramic Society (ACerS), 2024.
+                <strong>Basic Sciences Division GEMS-Diamond Award</strong>
+                <br>American Ceramic Society (ACerS), 2024.
             </div>
-
             <div class="award">
-                <strong>Outstanding Masters Thesis</strong><br>
-                University of Toledo, 2018.
+                <strong>Outstanding Masters Thesis</strong>
+                <br>University of Toledo, 2018.
             </div>
         </section>
 
-        <!-- Talks Section -->
         <section>
             <h2>Recent and Upcoming Talks</h2>
-            
             <p>
                 <strong>Invited Speaker</strong> Young Investigator Forum, ICACC (International Conference on Advanced Ceramics and Composites, January 2025.<br>
                 <strong>Invited Speaker</strong> National Science Day Gayatri Vidya Parishad College of Engineering Visakhapatnam, India, February 2024.<br>
@@ -456,17 +487,14 @@
             </p>
         </section>
 
-        <!-- News Section -->
         <section id="news">
             <h2>News & Updates</h2>
-
             <div class="news-item">
                 <strong>2026</strong>
                 <ol>
                     <li>Excited to be a part of the 2026 cohort of the Postdoctoral Grant Writing Workshop at UAB!</li>
                 </ol>
             </div>
-
             <div class="news-item">
                 <strong>2025</strong>
                 <ol>
@@ -475,7 +503,6 @@
                     <li>Received the <strong>Global Web of Talents Silver</strong> award! Humbled!</li>
                 </ol>
             </div>
-
             <div class="news-item">
                 <strong>2024</strong>
                 <ol>
@@ -484,85 +511,102 @@
             </div>
         </section>
 
-        <!-- Service Section -->
         <section id="service">
             <h2>Service</h2>
-            
             <h3>Professional Service</h3>
             <ul>
                 <li><strong> Guest Editor:</strong> Ceramics</li>
                 <li><strong>Reviewer:</strong> Nature, ACerS, ECerS, Elsevier, ACS (Please see <strong>CV</strong> for complete list)</li>
                 <li><strong>Committee Member:</strong> Education and Professional Development Committee (ACerS) 2022-Present</li>
-                 <li><strong>Session Chair:</strong> ICACC 2025, Young Investigator Forum
-                  <br>
-                     MXenes Symposium MRS Spring 2022, Fall 2022
-                <br>
-                Advanced Materials for harsh environments MS&T Fall 2021
-                 </li>
-                <li><strong>Organiser</strong> IGNITE MSE 2023, 2024
-                <br>
-               
-                </li>
+                <li><strong>Session Chair:</strong> ICACC 2025, Young Investigator Forum<br><br>MXenes Symposium MRS Spring 2022, Fall 2022<br><br>Advanced Materials for harsh environments MS&T Fall 2021</li>
+                <li><strong>Organiser</strong> IGNITE MSE 2023, 2024</li>
             </ul>
-
-           
         </section>
 
-        
-        <!-- SOFTWARE -->
         <section>
             <h2>Software</h2>
             <p>
              <a href="https://purdue0-my.sharepoint.com/my?id=%2Fpersonal%2Fsnemani%5Fpurdue%5Fedu%2FDocuments%2FMAX%20calculator%20software&FolderCTID=0x012000902103DC1114834D95EC404EBF6D2CDC" target="_blank">MAX Calculator (Password: MAX)</a>
-       
-         </p>
-        
+            </p>
         </section>
 
-    
-        <!-- Contact Section -->
         <section id="contact">
             <h2>Contact</h2>
-
-            <p>
-                <strong>Email:</strong> 
-                <a href="mailto:nemanis@uab.edu">nemanis@uab.edu</a>
-            </p>
-
-            <p>
-                <strong>Office:</strong> Gorrie hall GH5201, University of Alabama at Birmingham
-            </p>
-
-            <p>
-                <strong>Address:</strong><br>
-                Mechanical and Materials Engineering<br>
-                University of Alabama<br>
-                Birmingham, AL, 35210
-            </p>
-
+            <p><strong>Email:</strong> <a href="mailto:nemanis@uab.edu">nemanis@uab.edu</a></p>
+            <p><strong>Office:</strong> Gorrie hall GH5201, University of Alabama at Birmingham</p>
+            <p><strong>Address:</strong><br>Mechanical and Materials Engineering<br>University of Alabama<br>Birmingham, AL, 35210</p>
             <p>
                 <strong>Links:</strong><br>
                 <a href="https://scholar.google.com/citations?user=vclv4OUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a> | 
                 <a href="https://www.scopus.com/authid/detail.uri?authorId=57201860816" target="_blank">Scopus</a> | 
                 <a href="https://www.linkedin.com/in/kartik-nemani/" target="_blank">LinkedIn</a> |
-                <a href="https://www.webofscience.com/wos/author/record/GRR-3218-2022" targer ="_blank">Clarivate WOS</a>
+                <a href="https://www.webofscience.com/wos/author/record/GRR-3218-2022" target="_blank">Clarivate WOS</a>
             </p>
         </section>
     </main>
 
-    <!-- Footer -->
-      <footer>
+    <footer>
         <p>&copy; 2024 Kartik Nemani. All rights reserved.</p>
         <p>Last updated: January 2026</p>
-        
-        <!-- Visitor Counter Section -->
         <p>
-            Number of Visitors
- <a href='https://www.free-counters.org/'>
-            <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=df3f895d9eb8048283b38cd88c7be80eaf97916d'></script>
-<script type="text/javascript" src="https://freevisitorcounters.com/en/home/counter/1476551/t/13"></script>
-      </a>
+            Number of Visitors<br> 
+            <a href='https://www.free-counters.org/'>
+                <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=df3f895d9eb8048283b38cd88c7be80eaf97916d'></script>
+                <script type="text/javascript" src="https://freevisitorcounters.com/en/home/counter/1476551/t/13"></script>
+            </a>
         </p>
     </footer>
+
+    <script>
+    let isSnowing = false;
+    let snowInterval;
+
+    function toggleSnow() {
+        const btn = document.getElementById('toggleSnowBtn');
+        isSnowing = !isSnowing;
+
+        if (isSnowing) {
+            btn.classList.add('active');
+            btn.innerHTML = '<span>❄</span> Stop Snow';
+            // Start the infinite loop
+            startSnow();
+        } else {
+            btn.classList.remove('active');
+            btn.innerHTML = '<span>❄</span> Let it snow';
+            // Clear the loop
+            clearInterval(snowInterval);
+        }
+    }
+
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.innerHTML = '❄';
+        snowflake.classList.add('snowflake');
+        
+        // Randomize appearance
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.opacity = Math.random() * 0.6 + 0.4; // 40% to 100% opacity
+        snowflake.style.fontSize = (Math.random() * 15 + 10) + 'px';
+        
+        const fallDuration = Math.random() * 3 + 4; // 4-7 seconds for a gentler fall
+        snowflake.style.animation = `fall ${fallDuration}s linear forwards`;
+
+        document.body.appendChild(snowflake);
+
+        // Remove snowflake from DOM after it falls to prevent memory lag
+        setTimeout(() => {
+            snowflake.remove();
+        }, fallDuration * 1000);
+    }
+
+    function startSnow() {
+        // Create initial burst
+        for(let i=0; i<10; i++) {
+            createSnowflake();
+        }
+        // Keep spawning every 200ms
+        snowInterval = setInterval(createSnowflake, 200);
+    }
+    </script>
 </body>
 </html>
