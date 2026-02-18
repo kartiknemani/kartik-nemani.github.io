@@ -31,23 +31,15 @@
             --color-text-light: #718096;
             --color-border: #e2e8f0;
             
-            /* BACKGROUND IMAGE SETTINGS */
             --color-bg-image: url('background.png'); 
-            --bg-image-opacity: 0.1; /* 10% opacity = 90% transparent */
+            --bg-image-opacity: 0.1;
             
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-sans);
@@ -58,14 +50,11 @@
             z-index: 1;
         }
 
-        /* BACKGROUND IMAGE OVERLAY */
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: var(--color-bg-image);
             background-size: cover;
             background-position: center;
@@ -75,7 +64,7 @@
             pointer-events: none;
         }
 
-        /* Let it Snow Button Styles */
+        /* ===== DISABLED - WINTER SNOW =====
         .snow-btn {
             position: fixed;
             top: 0.8rem;
@@ -95,31 +84,70 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .snow-btn.active {
             background-color: var(--color-accent);
             color: white;
             border-color: var(--color-accent);
         }
-
-        /* Snowflake styling - Greyish with shadow for visibility on light backgrounds */
         .snowflake {
             position: fixed;
             top: -10px;
-            color: #cbd5e0; /* Light grey */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Subtle dark shadow */
+            color: #cbd5e0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) translateX(30px); }
+        }
+        ===== END DISABLED ===== */
+
+        /* ===== ACTIVE - SPRING BLOSSOMS ===== */
+        .blossom-btn {
+            position: fixed;
+            top: 0.8rem;
+            right: 2rem;
+            z-index: 2000;
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(255, 182, 193, 0.3);
+        }
+
+        .blossom-btn.active {
+            background-color: #e75480;
+            color: white;
+            border-color: #e75480;
+        }
+
+        .blossom {
+            position: fixed;
+            top: -10px;
+            color: #ffb7c5;
+            text-shadow: 1px 1px 3px rgba(231, 84, 128, 0.4);
             pointer-events: none;
             z-index: 9999;
             user-select: none;
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(105vh) translateX(30px);
-            }
+        @keyframes falling {
+            0%   { transform: translateY(-10px) translateX(0px) rotate(0deg); opacity: 1; }
+            50%  { transform: translateY(50vh) translateX(25px) rotate(180deg); }
+            85%  { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(-15px) rotate(360deg); opacity: 0; }
         }
+        /* ===== END SPRING BLOSSOMS ===== */
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -149,11 +177,8 @@
             font-size: 0.95rem;
         }
 
-        nav a:hover {
-            color: var(--color-accent);
-        }
+        nav a:hover { color: var(--color-accent); }
 
-        /* Main Container */
         main {
             max-width: 800px;
             margin: 0 auto;
@@ -161,7 +186,6 @@
             line-height: 1.8;
         }
 
-        /* Header Section */
         .header {
             margin-bottom: 3rem;
             display: flex;
@@ -187,34 +211,14 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .profile-image img { width: 100%; height: 100%; object-fit: cover; }
 
-        .header-content {
-            flex: 1;
-            position: relative;
-            z-index: 2;
-        }
+        .header-content { flex: 1; position: relative; z-index: 2; }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--color-primary);
-        }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--color-primary); }
+        .subtitle { font-size: 1.1rem; color: var(--color-text-light); margin-bottom: 2rem; }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--color-text-light);
-            margin-bottom: 2rem;
-        }
-
-        /* Section Styles */
-        section {
-            margin-bottom: 3rem;
-        }
+        section { margin-bottom: 3rem; }
 
         h2 {
             font-size: 1.5rem;
@@ -224,24 +228,10 @@
             border-bottom: 2px solid var(--color-border);
         }
 
-        h3 {
-            font-size: 1.1rem;
-            color: var(--color-text);
-            margin: 1.5rem 0 0.5rem 0;
-            font-weight: 600;
-        }
+        h3 { font-size: 1.1rem; color: var(--color-text); margin: 1.5rem 0 0.5rem 0; font-weight: 600; }
+        p { margin-bottom: 1rem; color: var(--color-text); }
+        strong { color: var(--color-primary); font-weight: 600; }
 
-        p {
-            margin-bottom: 1rem;
-            color: var(--color-text);
-        }
-
-        strong {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        /* Links */
         a {
             color: var(--color-accent);
             text-decoration: none;
@@ -255,24 +245,11 @@
             text-decoration-thickness: 2px;
         }
 
-        /* List Styles */
-        ul, ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; }
 
-        li {
-            margin-bottom: 0.5rem;
-        }
+        .highlight { background-color: #fef3c7; padding: 0.1rem 0.3rem; border-radius: 3px; }
 
-        /* Highlights */
-        .highlight {
-            background-color: #fef3c7;
-            padding: 0.1rem 0.3rem;
-            border-radius: 3px;
-        }
-
-        /* News/Updates */
         .news-item {
             padding: 1rem;
             background-color: #f9fafb;
@@ -281,13 +258,8 @@
             border-radius: 4px;
         }
 
-        .news-item strong:first-child {
-            display: inline;
-            margin-right: 1rem;
-            color: var(--color-accent);
-        }
+        .news-item strong:first-child { display: inline; margin-right: 1rem; color: var(--color-accent); }
 
-        /* Awards */
         .award {
             padding: 1rem;
             background-color: #f9fafb;
@@ -296,7 +268,6 @@
             border-left: 3px solid #f59e0b;
         }
 
-        /* Footer */
         footer {
             background-color: rgba(237, 242, 247, 0.9);
             padding: 2rem;
@@ -306,53 +277,35 @@
             border-top: 1px solid var(--color-border);
         }
 
-        footer p {
-            margin-bottom: 0.5rem;
-        }
+        footer p { margin-bottom: 0.5rem; }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-                justify-content: flex-start;
-            }
+            nav ul { gap: 1rem; justify-content: flex-start; }
 
-            .snow-btn {
-                top: auto;
-                bottom: 1rem;
-                right: 1rem;
-            }
+            .blossom-btn { top: auto; bottom: 1rem; right: 1rem; }
 
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            main {
-                padding: 7rem 1rem 4rem;
-            }
+            .header { flex-direction: column; align-items: flex-start; }
+            h1 { font-size: 2rem; }
+            main { padding: 7rem 1rem 4rem; }
         }
 
-        /* Print styles */
         @media print {
-            nav, .snow-btn {
-                display: none;
-            }
-            main {
-                padding: 2rem;
-                margin-top: 0;
-            }
+            nav, .blossom-btn { display: none; }
+            main { padding: 2rem; margin-top: 0; }
         }
     </style>
 </head>
 <body>
-    
+
+    <!-- DISABLED - WINTER BUTTON
     <button id="toggleSnowBtn" class="snow-btn" onclick="toggleSnow()">
         <span>❄</span> Let it snow
+    </button>
+    END DISABLED -->
+
+    <!-- ACTIVE - SPRING BUTTON -->
+    <button id="toggleBlossomBtn" class="blossom-btn" onclick="toggleBlossoms()">
+        <span>🌸</span> Start Flowering
     </button>
 
     <nav>
@@ -361,7 +314,7 @@
             <li><a href="#research">Research</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#teaching">Teaching</a></li>
-            <li><a "="KARTIK NEMANI- C.V..pdf" target="_blank">CV</a></li>
+            <li><a href="KARTIK NEMANI- C.V..pdf" target="_blank">CV</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#service">Service</a></li>
             <li><a href="media.html" target="_blank">Media</a></li>
@@ -382,12 +335,10 @@
                     I am a <strong style="color: var(--color-accent);">Fellow</strong> in the <strong>Department of Mechanical and Materials Engineering</strong> at 
                     <strong>The University of Alabama at Birmingham</strong>.
                 </p>
-
                 <p>
                     I completed my Ph.D. at Purdue University, advised by 
                     <a href="https://www.babakanasori.com" target="_blank">Dr. Babak Anasori</a>.
                 </p>
-
                 <p>
                     Earlier, I earned my Masters in mechanical engineering from the University of Toledo advised by 
                     <a href="https://www.utoledo.edu/engineering/mechanical-industrial-manufacturing-engineering/people/sojoudi.html" target="_blank">Dr. Hossein Sojoudi</a>.
@@ -401,15 +352,13 @@
             <p>
                 I am broadly interested in <strong>Materials for Extremes</strong>, <strong>Layered Ceramics</strong> and <strong>Polymer Derived Ceramics</strong>, their applications to <strong>Nuclear, Aerospace</strong>, & <strong>Energy</strong>.
             </p>
-
             <p>
                My long-term research goal is to integrate atomistic design of layered ceramic materials with polymer‑derived precursors to create next‑generation structural systems, enabled by state‑of‑the‑art manufacturing approaches.
             </p>
-
             <h3>Current Research Thrusts</h3>
             <ul>
                 <li><strong>Functionally Graded Materials:</strong> Developing compositionally and microstructurally graded ceramic architectures that enable tailored thermal, mechanical, and oxidation‑resistant responses for extreme‑environment applications, with emphasis on integrating high‑entropy phases and engineered interfaces.</li>
-                <li><strong>Materials for Nuclear Extremes:</strong> Designing and evaluating radiation‑tolerant ceramics and ceramic‑matrix composites through controlled defect engineering, high‑temperature stability studies, and microstructure‑by‑design frameworks to support next‑generation fission and fusion systems</li>
+                <li><strong>Materials for Nuclear Extremes:</strong> Designing and evaluating radiation‑tolerant ceramics and ceramic‑matrix composites through controlled defect engineering, high‑temperature stability studies, and microstructure‑by‑design frameworks to support next‑generation fission and fusion systems.</li>
                 <li><strong>2D layered Ceramics and Polymer Derived Hard Materials:</strong> Advancing synthesis and integration of MXenes, layered carbides, and high‑entropy 2D systems into polymer‑derived ceramic platforms to create ultrahigh‑temperature, oxidation‑resistant, and mechanically robust hybrid materials with tunable interfacial chemistry.</li>
             </ul>
         </section>
@@ -421,7 +370,6 @@
                 For a complete list, please see 
                 <a href="https://scholar.google.com/citations?user=vclv4OUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>.
             </p>
-
             <h3>Recent Papers</h3>
             <ul>
                 <li>
@@ -452,7 +400,7 @@
             </ul>
             <h3>Tutorials & Workshops</h3>
             <ul>
-                <li><strong> ME 523 Nanosystems Principles-Scanning Electron Microscopy</strong>-Indianapolis, Spring 2024</li>
+                <li><strong>ME 523 Nanosystems Principles-Scanning Electron Microscopy</strong> - Indianapolis, Spring 2024</li>
             </ul>
         </section>
 
@@ -481,9 +429,9 @@
         <section>
             <h2>Recent and Upcoming Talks</h2>
             <p>
-                <strong> Invited Speaker and presentation </strong> I will be presenting at the American Ceramic Society (ACerS) Spring Meeting 2026 at Bellevue, Washington in April. 
+                <strong>Invited Speaker and presentation</strong> I will be presenting at the American Ceramic Society (ACerS) Spring Meeting 2026 at Bellevue, Washington in April. 
                     __________________________________________________________________________________________________________________________________________________________________
-                <strong>Invited Speaker</strong> Young Investigator Forum, ICACC (International Conference on Advanced Ceramics and Composites, January 2025.<br>
+                <strong>Invited Speaker</strong> Young Investigator Forum, ICACC (International Conference on Advanced Ceramics and Composites), January 2025.<br>
                 <strong>Invited Speaker</strong> National Science Day Gayatri Vidya Parishad College of Engineering Visakhapatnam, India, February 2024.<br>
                 <strong>Invited Speaker</strong> Andhra University, College of Mechanical Engineering, February 2024.
             </p>
@@ -517,18 +465,18 @@
             <h2>Service</h2>
             <h3>Professional Service</h3>
             <ul>
-                <li><strong> Guest Editor:</strong> Ceramics</li>
+                <li><strong>Guest Editor:</strong> Ceramics</li>
                 <li><strong>Reviewer:</strong> Nature, ACerS, ECerS, Elsevier, ACS (Please see <strong>CV</strong> for complete list)</li>
                 <li><strong>Committee Member:</strong> Education and Professional Development Committee (ACerS) 2022-Present</li>
                 <li><strong>Session Chair:</strong> ICACC 2025, Young Investigator Forum<br><br>MXenes Symposium MRS Spring 2022, Fall 2022<br><br>Advanced Materials for harsh environments MS&T Fall 2021</li>
-                <li><strong>Organiser</strong> IGNITE MSE 2023, 2024</li>
+                <li><strong>Organiser:</strong> IGNITE MSE 2023, 2024</li>
             </ul>
         </section>
 
         <section>
             <h2>Software</h2>
             <p>
-             <a href="https://purdue0-my.sharepoint.com/my?id=%2Fpersonal%2Fsnemani%5Fpurdue%5Fedu%2FDocuments%2FMAX%20calculator%20software&FolderCTID=0x012000902103DC1114834D95EC404EBF6D2CDC" target="_blank">MAX Calculator (Password: MAX)</a>
+                <a href="https://purdue0-my.sharepoint.com/my?id=%2Fpersonal%2Fsnemani%5Fpurdue%5Fedu%2FDocuments%2FMAX%20calculator%20software&FolderCTID=0x012000902103DC1114834D95EC404EBF6D2CDC" target="_blank">MAX Calculator (Password: MAX)</a>
             </p>
         </section>
 
@@ -560,22 +508,21 @@
     </footer>
 
     <script>
+
+    /* ===== DISABLED - WINTER SNOW FUNCTIONS =====
     let isSnowing = false;
     let snowInterval;
 
     function toggleSnow() {
         const btn = document.getElementById('toggleSnowBtn');
         isSnowing = !isSnowing;
-
         if (isSnowing) {
             btn.classList.add('active');
             btn.innerHTML = '<span>❄</span> Stop Snow';
-            // Start the infinite loop
             startSnow();
         } else {
             btn.classList.remove('active');
             btn.innerHTML = '<span>❄</span> Let it snow';
-            // Clear the loop
             clearInterval(snowInterval);
         }
     }
@@ -584,31 +531,59 @@
         const snowflake = document.createElement('div');
         snowflake.innerHTML = '❄';
         snowflake.classList.add('snowflake');
-        
-        // Randomize appearance
         snowflake.style.left = Math.random() * 100 + 'vw';
-        snowflake.style.opacity = Math.random() * 0.6 + 0.4; // 40% to 100% opacity
+        snowflake.style.opacity = Math.random() * 0.6 + 0.4;
         snowflake.style.fontSize = (Math.random() * 15 + 10) + 'px';
-        
-        const fallDuration = Math.random() * 3 + 4; // 4-7 seconds for a gentler fall
+        const fallDuration = Math.random() * 3 + 4;
         snowflake.style.animation = `fall ${fallDuration}s linear forwards`;
-
         document.body.appendChild(snowflake);
-
-        // Remove snowflake from DOM after it falls to prevent memory lag
-        setTimeout(() => {
-            snowflake.remove();
-        }, fallDuration * 1000);
+        setTimeout(() => { snowflake.remove(); }, fallDuration * 1000);
     }
 
     function startSnow() {
-        // Create initial burst
-        for(let i=0; i<10; i++) {
-            createSnowflake();
-        }
-        // Keep spawning every 200ms
+        for(let i=0; i<10; i++) { createSnowflake(); }
         snowInterval = setInterval(createSnowflake, 200);
     }
+    ===== END DISABLED ===== */
+
+    /* ===== ACTIVE - SPRING BLOSSOM FUNCTIONS ===== */
+    let isFlowering = false;
+    let blossomInterval;
+    const blossomChars = ['🌸', '🌺', '❀', '✿', '❁'];
+
+    function toggleBlossoms() {
+        const btn = document.getElementById('toggleBlossomBtn');
+        isFlowering = !isFlowering;
+        if (isFlowering) {
+            btn.classList.add('active');
+            btn.innerHTML = '<span>🌸</span> Stop Flowering';
+            startFlowering();
+        } else {
+            btn.classList.remove('active');
+            btn.innerHTML = '<span>🌸</span> Start Flowering';
+            clearInterval(blossomInterval);
+        }
+    }
+
+    function createBlossom() {
+        const blossom = document.createElement('div');
+        blossom.textContent = blossomChars[Math.floor(Math.random() * blossomChars.length)];
+        blossom.classList.add('blossom');
+        blossom.style.left = Math.random() * 100 + 'vw';
+        blossom.style.opacity = Math.random() * 0.5 + 0.5;
+        blossom.style.fontSize = (Math.random() * 12 + 10) + 'px';
+        const fallDuration = Math.random() * 4 + 4;
+        blossom.style.animation = `falling ${fallDuration}s linear forwards`;
+        document.body.appendChild(blossom);
+        setTimeout(() => { blossom.remove(); }, fallDuration * 1000);
+    }
+
+    function startFlowering() {
+        for (let i = 0; i < 10; i++) { createBlossom(); }
+        blossomInterval = setInterval(createBlossom, 200);
+    }
+    /* ===== END SPRING BLOSSOM FUNCTIONS ===== */
+
     </script>
 </body>
 </html>
