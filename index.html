@@ -64,11 +64,11 @@
             pointer-events: none;
         }
 
-        /* ===== DISABLED - WINTER SNOW =====
+        /* ===== ACTIVE - WINTER SNOW ===== */
         .snow-btn {
             position: fixed;
             top: 0.8rem;
-            right: 2rem;
+            right: 12rem;
             z-index: 2000;
             padding: 0.5rem 1rem;
             background-color: white;
@@ -101,7 +101,7 @@
         @keyframes fall {
             to { transform: translateY(105vh) translateX(30px); }
         }
-        ===== END DISABLED ===== */
+        /* ===== END ACTIVE ===== */
 
         /* ===== ACTIVE - SPRING BLOSSOMS ===== */
         .blossom-btn {
@@ -297,11 +297,10 @@
 </head>
 <body>
 
-    <!-- DISABLED - WINTER BUTTON
+    <!-- ACTIVE - WINTER BUTTON -->
     <button id="toggleSnowBtn" class="snow-btn" onclick="toggleSnow()">
         <span>❄</span> Let it snow
     </button>
-    END DISABLED -->
 
     <!-- ACTIVE - SPRING BUTTON -->
     <button id="toggleBlossomBtn" class="blossom-btn" onclick="toggleBlossoms()">
@@ -509,7 +508,7 @@
 
     <script>
 
-    /* ===== DISABLED - WINTER SNOW FUNCTIONS =====
+    /* ===== ACTIVE - WINTER SNOW FUNCTIONS ===== */
     let isSnowing = false;
     let snowInterval;
 
@@ -544,7 +543,7 @@
         for(let i=0; i<10; i++) { createSnowflake(); }
         snowInterval = setInterval(createSnowflake, 200);
     }
-    ===== END DISABLED ===== */
+    /* ===== END ACTIVE ===== */
 
     /* ===== ACTIVE - SPRING BLOSSOM FUNCTIONS ===== */
     let isFlowering = false;
