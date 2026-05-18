@@ -47,7 +47,7 @@
             --color-border: #4a5568;
         }
         body.dark nav                { background: rgba(26, 32, 44, 0.97); border-bottom-color: #4a5568; }
-        body.dark .blossom-btn       { background-color: #2d3748; color: #e2e8f0; border-color: #4a5568; }
+        body.dark .summer-btn        { background-color: #2d3748; color: #e2e8f0; border-color: #4a5568; }
         body.dark .dark-mode-btn     { background-color: #2d3748; border-color: #4a5568; }
         body.dark .news-item,
         body.dark .award             { background-color: #2d3748; }
@@ -84,42 +84,13 @@
         }
 
         /* ===== DISABLED - WINTER SNOW (re-enable next winter) =====
-        .snow-btn {
-            position: fixed;
-            top: 0.8rem;
-            right: 12rem;
-            z-index: 2000;
-            padding: 0.5rem 1rem;
-            background-color: white;
-            border: 1px solid var(--color-border);
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .snow-btn.active {
-            background-color: var(--color-accent);
-            color: white;
-            border-color: var(--color-accent);
-        }
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: #cbd5e0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            pointer-events: none;
-            z-index: 9999;
-            user-select: none;
-        }
-        @keyframes fall {
-            to { transform: translateY(105vh) translateX(30px); }
-        }
+        .snow-btn { ... }
+        ===== END DISABLED ===== */
+
+        /* ===== DISABLED - SPRING BLOSSOMS (spring has ended) =====
+        .blossom-btn { ... }
+        .blossom { ... }
+        @keyframes falling { ... }
         ===== END DISABLED ===== */
 
         /* ===== DARK MODE TOGGLE BUTTON ===== */
@@ -144,8 +115,8 @@
         .dark-mode-btn:hover { transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         /* ===== END DARK MODE TOGGLE BUTTON ===== */
 
-        /* ===== ACTIVE - SPRING BLOSSOMS ===== */
-        .blossom-btn {
+        /* ===== ACTIVE - SUMMER VIBES ===== */
+        .summer-btn {
             position: fixed;
             top: 0.8rem;
             right: 2rem;
@@ -162,32 +133,71 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(255, 182, 193, 0.3);
+            box-shadow: 0 2px 8px rgba(255, 210, 50, 0.3);
         }
 
-        .blossom-btn.active {
-            background-color: #e75480;
+        .summer-btn.active {
+            background: linear-gradient(135deg, #f9c933, #ff6b35);
             color: white;
-            border-color: #e75480;
+            border-color: #f9c933;
+            box-shadow: 0 4px 16px rgba(249, 201, 51, 0.5);
         }
 
-        .blossom {
+        /* Summer falling items */
+        .summer-item {
             position: fixed;
-            top: -10px;
-            color: #ffb7c5;
-            text-shadow: 1px 1px 3px rgba(231, 84, 128, 0.4);
+            top: -60px;
             pointer-events: none;
             z-index: 9999;
             user-select: none;
+            will-change: transform, opacity;
         }
 
-        @keyframes falling {
-            0%   { transform: translateY(-10px) translateX(0px) rotate(0deg); opacity: 1; }
-            50%  { transform: translateY(50vh) translateX(25px) rotate(180deg); }
-            85%  { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(-15px) rotate(360deg); opacity: 0; }
+        /* Lemon SVG item */
+        .summer-item.lemon svg,
+        .summer-item.watermelon svg {
+            display: block;
         }
-        /* ===== END SPRING BLOSSOMS ===== */
+
+        /* Drift left/right breeze effect */
+        @keyframes summerFall {
+            0%   {
+                transform: translateY(-60px) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            8%   { opacity: 1; }
+            30%  {
+                transform: translateY(30vh) translateX(18px) rotate(60deg);
+            }
+            60%  {
+                transform: translateY(65vh) translateX(-12px) rotate(150deg);
+            }
+            88%  { opacity: 1; }
+            100% {
+                transform: translateY(108vh) translateX(10px) rotate(280deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes summerDrift {
+            0%   {
+                transform: translateY(-60px) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10%  { opacity: 0.9; }
+            25%  {
+                transform: translateY(25vh) translateX(-22px) rotate(-40deg);
+            }
+            55%  {
+                transform: translateY(60vh) translateX(16px) rotate(-110deg);
+            }
+            85%  { opacity: 0.9; }
+            100% {
+                transform: translateY(108vh) translateX(-8px) rotate(-240deg);
+                opacity: 0;
+            }
+        }
+        /* ===== END SUMMER VIBES ===== */
 
         nav {
             position: fixed;
@@ -236,9 +246,9 @@
         }
 
         .profile-image {
-            width: 200px;        /* CHANGED from 150px */
-            height: 260px;       /* CHANGED from 200px */
-            min-width: 200px;    /* CHANGED from 150px */
+            width: 200px;
+            height: 260px;
+            min-width: 200px;
             border-radius: 8px;
             background-color: #e2e8f0;
             border: 2px solid var(--color-border);
@@ -328,8 +338,8 @@
         @media (max-width: 768px) {
             nav ul { gap: 1rem; justify-content: flex-start; }
 
-            .blossom-btn { top: auto; bottom: 1rem; right: 1rem; }
-            .dark-mode-btn { right: 1rem; }  /* repositioned on mobile */
+            .summer-btn { top: auto; bottom: 1rem; right: 1rem; }
+            .dark-mode-btn { right: 1rem; }
 
             .header { flex-direction: column; align-items: flex-start; }
             h1 { font-size: 2rem; }
@@ -337,18 +347,15 @@
         }
 
         @media print {
-            nav, .blossom-btn, .dark-mode-btn { display: none; }
+            nav, .summer-btn, .dark-mode-btn { display: none; }
             main { padding: 2rem; margin-top: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- DISABLED - WINTER BUTTON (re-enable next winter)
-    <button id="toggleSnowBtn" class="snow-btn" onclick="toggleSnow()">
-        <span>❄</span> Let it snow
-    </button>
-    END DISABLED -->
+    <!-- DISABLED - WINTER BUTTON (re-enable next winter) -->
+    <!-- DISABLED - SPRING BLOSSOM BUTTON (spring has ended) -->
 
     <!-- DARK MODE TOGGLE - half sun / half moon icon -->
     <button id="darkModeBtn" class="dark-mode-btn" onclick="toggleDarkMode()" title="Toggle light / dark mode">
@@ -378,9 +385,9 @@
         </svg>
     </button>
 
-    <!-- ACTIVE - SPRING BUTTON -->
-    <button id="toggleBlossomBtn" class="blossom-btn" onclick="toggleBlossoms()">
-        <span>🌸</span> Start Flowering
+    <!-- ACTIVE - SUMMER BUTTON -->
+    <button id="toggleSummerBtn" class="summer-btn" onclick="toggleSummer()">
+        <span>☀️</span> Summer is here
     </button>
 
     <nav>
@@ -425,7 +432,7 @@
             <h2>Research Interests</h2>
             <br>
             <p>
-                I am broadly interested in <strong>Materials for Extremes</strong>, <strong>Layered Ceramics</strong> and <strong>Polymer Derived Ceramics</strong>, their applications to <strong>Nuclear, Aerospace</strong>, & <strong>Energy</strong>.
+                I am broadly interested in <strong>Materials for Extremes</strong>, <strong>Layered Ceramics</strong> and <strong>Polymer Derived Ceramics</strong>, their applications to <strong>Nuclear, Aerospace</strong>, &amp; <strong>Energy</strong>.
             </p>
             <p>
                My long-term research goal is to integrate atomistic design of layered ceramic materials with polymer‑derived precursors to create next‑generation structural systems, enabled by state‑of‑the‑art manufacturing approaches.
@@ -449,7 +456,7 @@
             <ul>
                 <li>
                     <strong>Accepted!</strong> Our study on interface evolution in sintered polymer derived silicon carbide and lamellar metal carbides is accepted in <strong>Advanced Composites and Hybrid Materials</strong>.
-                    <br> S.K.Nemani, K.Bawane et al. <em>Adv. Composites & Hybrid Mater, 2026</em>. 
+                    <br> S.K.Nemani, K.Bawane et al. <em>Adv. Composites &amp; Hybrid Mater, 2026</em>. 
                     [<a href="Understanding phase and microstructure.pdf" target="_blank">PDF</a>]
                 </li>
                 <li>
@@ -478,7 +485,7 @@
                 <li><strong>MIME 341 Thermodynamics II</strong> (Spring 2018)</li>
                 <li><strong>ME 482 Introduction to Nanotechnology</strong> (Fall 2023)</li>
             </ul>
-            <h3>Tutorials & Workshops</h3>
+            <h3>Tutorials &amp; Workshops</h3>
             <ul>
                 <li><strong>ME 523 Nanosystems Principles-Scanning Electron Microscopy</strong> - Indianapolis, Spring 2024</li>
             </ul>
@@ -489,7 +496,7 @@
             <div class="award">
                 <strong>Silver Award</strong>
                 <br>Web of Talents, 2025. 
-                <a href="https://www.linkedin.com/posts/mariolan_ieee-iedm-stem-activity-7303170807201943552-Jp88/?rcm=ACoAAAn8ZpIBTMO7ODh23iT2jwqDo_6-azVNZFM">Read more</a>
+                <a href="https://www.linkedin.com/posts/mariolan_ieee-iedm-stem-activity-7303170807201943552-Jp88/?rcm=ACoAAAn8ZpIBTMO7ODh23iT2jwqDo_6-azVNZFM" target="_blank" rel="noopener noreferrer">Read more</a>
             </div>
             <div class="award">
                 <strong>Elite 50 Award</strong>
@@ -519,7 +526,7 @@
         </section>
 
         <section id="news">
-            <h2>News & Updates</h2>
+            <h2>News &amp; Updates</h2>
             <div class="news-item">
                 <strong>2026</strong>
                 <ol>
@@ -537,7 +544,7 @@
             <div class="news-item">
                 <strong>2024</strong>
                 <ol>
-                    <li>Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&T 2024!</li>
+                    <li>Our study on ZrB2-MXene UHTCs received the <strong>GEMS (Graduate Excellence in Materials Science) Diamond Award</strong> at MS&amp;T 2024!</li>
                 </ol>
             </div>
         </section>
@@ -549,7 +556,7 @@
                 <li><strong>Guest Editor:</strong> Ceramics</li>
                 <li><strong>Reviewer:</strong> Nature, ACerS, ECerS, Elsevier, ACS (Please see <strong>CV</strong> for complete list)</li>
                 <li><strong>Committee Member:</strong> Education and Professional Development Committee (ACerS) 2022-Present</li>
-                <li><strong>Session Chair:</strong> ICACC 2025, Young Investigator Forum<br><br>MXenes Symposium MRS Spring 2022, Fall 2022<br><br>Advanced Materials for harsh environments MS&T Fall 2021</li>
+                <li><strong>Session Chair:</strong> ICACC 2025, Young Investigator Forum<br><br>MXenes Symposium MRS Spring 2022, Fall 2022<br><br>Advanced Materials for harsh environments MS&amp;T Fall 2021</li>
                 <li><strong>Organiser:</strong> IGNITE MSE 2023, 2024</li>
             </ul>
         </section>
@@ -603,79 +610,146 @@
     /* ===== DISABLED - WINTER SNOW FUNCTIONS (re-enable next winter) =====
     let isSnowing = false;
     let snowInterval;
-
-    function toggleSnow() {
-        const btn = document.getElementById('toggleSnowBtn');
-        isSnowing = !isSnowing;
-        if (isSnowing) {
-            btn.classList.add('active');
-            btn.innerHTML = '<span>❄</span> Stop Snow';
-            startSnow();
-        } else {
-            btn.classList.remove('active');
-            btn.innerHTML = '<span>❄</span> Let it snow';
-            clearInterval(snowInterval);
-        }
-    }
-
-    function createSnowflake() {
-        const snowflake = document.createElement('div');
-        snowflake.innerHTML = '❄';
-        snowflake.classList.add('snowflake');
-        snowflake.style.left = Math.random() * 100 + 'vw';
-        snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-        snowflake.style.fontSize = (Math.random() * 15 + 10) + 'px';
-        const fallDuration = Math.random() * 3 + 4;
-        snowflake.style.animation = `fall ${fallDuration}s linear forwards`;
-        document.body.appendChild(snowflake);
-        setTimeout(() => { snowflake.remove(); }, fallDuration * 1000);
-    }
-
-    function startSnow() {
-        for(let i=0; i<10; i++) { createSnowflake(); }
-        snowInterval = setInterval(createSnowflake, 200);
-    }
+    function toggleSnow() { ... }
+    function createSnowflake() { ... }
+    function startSnow() { ... }
     ===== END DISABLED ===== */
 
-    /* ===== ACTIVE - SPRING BLOSSOM FUNCTIONS ===== */
+    /* ===== DISABLED - SPRING BLOSSOM FUNCTIONS (spring has ended) =====
     let isFlowering = false;
     let blossomInterval;
     const blossomChars = ['🌸', '🌺', '❀', '✿', '❁'];
-    const blossomColors = ['#ff69b4', '#ff0000', '#ffd700', '#ff8c00', '#ff1493', '#ff6347', '#ffb7c5', '#ff4500'];
+    const blossomColors = [ ... ];
+    function toggleBlossoms() { ... }
+    function createBlossom() { ... }
+    function startFlowering() { ... }
+    ===== END DISABLED ===== */
 
-    function toggleBlossoms() {
-        const btn = document.getElementById('toggleBlossomBtn');
-        isFlowering = !isFlowering;
-        if (isFlowering) {
+    /* ===== ACTIVE - SUMMER VIBES FUNCTIONS ===== */
+    let isSummer = false;
+    let summerInterval;
+
+    // SVG markup for lemon slice (top-down cross-section view)
+    function lemonSVG(size) {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- Lemon slice outer rind -->
+            <circle cx="30" cy="30" r="28" fill="#f9e44b" stroke="#d4a017" stroke-width="2"/>
+            <!-- White pith ring -->
+            <circle cx="30" cy="30" r="23" fill="#fff9c4" stroke="#e8cc30" stroke-width="0.5"/>
+            <!-- Flesh circle -->
+            <circle cx="30" cy="30" r="20" fill="#f5d020"/>
+            <!-- Segment lines (8 segments) -->
+            <line x1="30" y1="10" x2="30" y2="50" stroke="#e8b800" stroke-width="1.2" opacity="0.8"/>
+            <line x1="10" y1="30" x2="50" y2="30" stroke="#e8b800" stroke-width="1.2" opacity="0.8"/>
+            <line x1="15.9" y1="15.9" x2="44.1" y2="44.1" stroke="#e8b800" stroke-width="1.2" opacity="0.8"/>
+            <line x1="44.1" y1="15.9" x2="15.9" y2="44.1" stroke="#e8b800" stroke-width="1.2" opacity="0.8"/>
+            <!-- Center pip -->
+            <circle cx="30" cy="30" r="3.5" fill="#d4a017" opacity="0.7"/>
+            <!-- Tiny highlight -->
+            <circle cx="22" cy="22" r="3" fill="white" opacity="0.35"/>
+        </svg>`;
+    }
+
+    // SVG markup for watermelon slice (triangular wedge view)
+    function watermelonSVG(size) {
+        const s = size;
+        return `<svg width="${s}" height="${Math.round(s*0.65)}" viewBox="0 0 80 52" xmlns="http://www.w3.org/2000/svg">
+            <!-- Green rind outer arc -->
+            <path d="M4,50 Q40,-8 76,50 Z" fill="#4caf50"/>
+            <!-- White inner rind band -->
+            <path d="M9,50 Q40,-1 71,50 Z" fill="#c8e6c9"/>
+            <!-- Red flesh -->
+            <path d="M13,50 Q40,5 67,50 Z" fill="#e53935"/>
+            <!-- Seeds -->
+            <ellipse cx="30" cy="34" rx="2.5" ry="4" fill="#1a1a1a" transform="rotate(-12,30,34)"/>
+            <ellipse cx="40" cy="28" rx="2.5" ry="4" fill="#1a1a1a" transform="rotate(2,40,28)"/>
+            <ellipse cx="50" cy="34" rx="2.5" ry="4" fill="#1a1a1a" transform="rotate(10,50,34)"/>
+            <ellipse cx="36" cy="40" rx="2" ry="3.5" fill="#1a1a1a" transform="rotate(-5,36,40)"/>
+            <ellipse cx="46" cy="41" rx="2" ry="3.5" fill="#1a1a1a" transform="rotate(8,46,41)"/>
+            <!-- Highlight shine -->
+            <ellipse cx="28" cy="22" rx="5" ry="3" fill="white" opacity="0.2" transform="rotate(-20,28,22)"/>
+        </svg>`;
+    }
+
+    // Wind/breeze particles (tiny curved lines)
+    function breezeSVG() {
+        const len = Math.random() * 18 + 10;
+        const opacity = (Math.random() * 0.3 + 0.15).toFixed(2);
+        const color = Math.random() > 0.5 ? '#a0d8ef' : '#b2dfdb';
+        return `<svg width="${Math.round(len * 2.2)}" height="14" viewBox="0 0 ${Math.round(len * 2.2)} 14" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2,7 Q${Math.round(len*0.6)},${Math.random()>0.5?2:12} ${Math.round(len*1.1)},7 Q${Math.round(len*1.6)},${Math.random()>0.5?12:2} ${Math.round(len*2)},7"
+                  fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" opacity="${opacity}"/>
+        </svg>`;
+    }
+
+    const itemTypes = ['lemon', 'watermelon', 'breeze'];
+
+    function createSummerItem() {
+        const el = document.createElement('div');
+        el.classList.add('summer-item');
+
+        // Weighted random: more breeze, balanced fruit
+        const roll = Math.random();
+        let type;
+        if (roll < 0.30) type = 'lemon';
+        else if (roll < 0.58) type = 'watermelon';
+        else type = 'breeze';
+
+        el.classList.add(type);
+
+        const size = type === 'lemon'
+            ? Math.round(Math.random() * 14 + 20)        // 20-34px
+            : type === 'watermelon'
+            ? Math.round(Math.random() * 18 + 24)        // 24-42px
+            : 1;                                          // breeze uses its own sizing
+
+        if (type === 'lemon') {
+            el.innerHTML = lemonSVG(size);
+        } else if (type === 'watermelon') {
+            el.innerHTML = watermelonSVG(size);
+        } else {
+            el.innerHTML = breezeSVG();
+        }
+
+        // Random horizontal position
+        el.style.left = (Math.random() * 98) + 'vw';
+
+        // Random fall speed: gentle — 6s to 11s
+        const duration = (Math.random() * 5 + 6).toFixed(2);
+        // Alternate between two drift animations for variety
+        const anim = Math.random() > 0.5 ? 'summerFall' : 'summerDrift';
+        const delay = (Math.random() * 1.2).toFixed(2);
+
+        el.style.animation = `${anim} ${duration}s ${delay}s linear forwards`;
+        el.style.opacity = '0';
+
+        document.body.appendChild(el);
+        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, (parseFloat(duration) + parseFloat(delay) + 0.5) * 1000);
+    }
+
+    function toggleSummer() {
+        const btn = document.getElementById('toggleSummerBtn');
+        isSummer = !isSummer;
+        if (isSummer) {
             btn.classList.add('active');
-            btn.innerHTML = '<span>🌸</span> Stop Flowering';
-            startFlowering();
+            btn.innerHTML = '<span>☀️</span> Stop Summer';
+            startSummer();
         } else {
             btn.classList.remove('active');
-            btn.innerHTML = '<span>🌸</span> Start Flowering';
-            clearInterval(blossomInterval);
+            btn.innerHTML = '<span>☀️</span> Summer is here';
+            clearInterval(summerInterval);
         }
     }
 
-    function createBlossom() {
-        const blossom = document.createElement('div');
-        blossom.textContent = blossomChars[Math.floor(Math.random() * blossomChars.length)];
-        blossom.classList.add('blossom');
-        blossom.style.left = Math.random() * 100 + 'vw';
-        blossom.style.opacity = Math.random() * 0.5 + 0.5;
-        blossom.style.fontSize = (Math.random() * 12 + 10) + 'px';
-        blossom.style.color = blossomColors[Math.floor(Math.random() * blossomColors.length)];
-        const fallDuration = Math.random() * 4 + 4;
-        blossom.style.animation = `falling ${fallDuration}s linear forwards`;
-        document.body.appendChild(blossom);
-        setTimeout(() => { blossom.remove(); }, fallDuration * 1000);
+    function startSummer() {
+        // Burst of items on start
+        for (let i = 0; i < 12; i++) {
+            setTimeout(createSummerItem, i * 80);
+        }
+        // Then gentle continuous stream
+        summerInterval = setInterval(createSummerItem, 280);
     }
-
-    function startFlowering() {
-        for (let i = 0; i < 10; i++) { createBlossom(); }
-        blossomInterval = setInterval(createBlossom, 200);
-    }
-    /* ===== END SPRING BLOSSOM FUNCTIONS ===== */
+    /* ===== END SUMMER VIBES FUNCTIONS ===== */
 
     </script>
 </body>
