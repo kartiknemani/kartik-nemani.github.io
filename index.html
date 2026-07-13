@@ -898,7 +898,7 @@
         if (isGusting) {
             anim = roll < 0.55 ? 'rainFallGustRight' : (roll < 0.9 ? 'rainFallGustLeft' : 'rainFall');
         } else {
-            anim = roll < 0.85 ? 'rainFall' : (roll < 0.93 ? 'rainFallGustRight' : 'rainFallGustLeft');
+            anim = roll < 0.85 ? 'rainFall' : (roll < 0.95 ? 'rainFallGustRight' : 'rainFallGustLeft');
         }
 
         const height = Math.round(Math.random() * 10 + 12); // 12-22px streak
