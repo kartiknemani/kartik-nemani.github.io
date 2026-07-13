@@ -48,6 +48,7 @@
         }
         body.dark nav                { background: rgba(26, 32, 44, 0.97); border-bottom-color: #4a5568; }
         body.dark .summer-btn        { background-color: #2d3748; color: #e2e8f0; border-color: #4a5568; }
+        body.dark .rain-btn          { background-color: #2d3748; color: #e2e8f0; border-color: #4a5568; }
         body.dark .dark-mode-btn     { background-color: #2d3748; border-color: #4a5568; }
         body.dark .news-item,
         body.dark .award             { background-color: #2d3748; }
@@ -115,7 +116,8 @@
         .dark-mode-btn:hover { transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         /* ===== END DARK MODE TOGGLE BUTTON ===== */
 
-        /* ===== ACTIVE - SUMMER VIBES ===== */
+        /* ===== DISABLED - SUMMER VIBES (disabled by user request, kept intact for reuse) ===== */
+        @media not all {
         .summer-btn {
             position: fixed;
             top: 0.8rem;
@@ -197,7 +199,93 @@
                 opacity: 0;
             }
         }
-        /* ===== END SUMMER VIBES ===== */
+        }
+        /* ===== END DISABLED - SUMMER VIBES ===== */
+
+        /* ===== ACTIVE - RAIN MODE ===== */
+        .rain-btn {
+            position: fixed;
+            top: 0.8rem;
+            right: 2rem;
+            z-index: 2000;
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(70, 110, 165, 0.3);
+        }
+
+        .rain-btn.active {
+            background: linear-gradient(135deg, #4a6fa5, #23303f);
+            color: white;
+            border-color: #4a6fa5;
+            box-shadow: 0 4px 16px rgba(74, 111, 165, 0.55);
+        }
+
+        /* Individual raindrop streak */
+        .rain-drop {
+            position: fixed;
+            top: -40px;
+            width: 2px;
+            pointer-events: none;
+            z-index: 9999;
+            background: linear-gradient(to bottom, rgba(174,214,241,0) 0%, rgba(174,214,241,0.85) 55%, rgba(226,242,254,0.9) 100%);
+            border-radius: 2px;
+            will-change: transform, opacity;
+        }
+
+        /* Faint horizontal streak shown briefly during wind gusts */
+        .wind-streak {
+            position: fixed;
+            top: -20px;
+            left: -10vw;
+            pointer-events: none;
+            z-index: 9998;
+            height: 1px;
+            background: linear-gradient(to right, rgba(203,224,255,0) 0%, rgba(203,224,255,0.55) 50%, rgba(203,224,255,0) 100%);
+            will-change: transform, opacity;
+        }
+
+        /* Mostly-vertical rainfall (calm conditions) */
+        @keyframes rainFall {
+            0%   { transform: translateY(-40px) translateX(0) rotate(4deg); opacity: 0; }
+            6%   { opacity: 1; }
+            92%  { opacity: 0.7; }
+            100% { transform: translateY(108vh) translateX(14px) rotate(4deg); opacity: 0; }
+        }
+
+        /* Wind-blown rainfall, slanting right - used more often during gusts */
+        @keyframes rainFallGustRight {
+            0%   { transform: translateY(-40px) translateX(0) rotate(24deg); opacity: 0; }
+            6%   { opacity: 1; }
+            88%  { opacity: 0.65; }
+            100% { transform: translateY(108vh) translateX(90px) rotate(24deg); opacity: 0; }
+        }
+
+        /* Wind-blown rainfall, slanting left */
+        @keyframes rainFallGustLeft {
+            0%   { transform: translateY(-40px) translateX(0) rotate(-22deg); opacity: 0; }
+            6%   { opacity: 1; }
+            88%  { opacity: 0.65; }
+            100% { transform: translateY(108vh) translateX(-80px) rotate(-22deg); opacity: 0; }
+        }
+
+        /* Gust streak drifting across the screen */
+        @keyframes windBlow {
+            0%   { transform: translateX(0) translateY(0); opacity: 0; }
+            15%  { opacity: 0.55; }
+            85%  { opacity: 0.4; }
+            100% { transform: translateX(120vw) translateY(8vh); opacity: 0; }
+        }
+        /* ===== END RAIN MODE ===== */
 
         nav {
             position: fixed;
@@ -339,6 +427,7 @@
             nav ul { gap: 1rem; justify-content: flex-start; }
 
             .summer-btn { top: auto; bottom: 1rem; right: 1rem; }
+            .rain-btn { top: auto; bottom: 1rem; right: 1rem; }
             .dark-mode-btn { right: 1rem; }
 
             .header { flex-direction: column; align-items: flex-start; }
@@ -347,7 +436,7 @@
         }
 
         @media print {
-            nav, .summer-btn, .dark-mode-btn { display: none; }
+            nav, .summer-btn, .rain-btn, .dark-mode-btn { display: none; }
             main { padding: 2rem; margin-top: 0; }
         }
     </style>
@@ -385,9 +474,16 @@
         </svg>
     </button>
 
-    <!-- ACTIVE - SUMMER BUTTON -->
+    <!-- DISABLED - SUMMER BUTTON (disabled by user request, kept intact for reuse) -->
+    <!--
     <button id="toggleSummerBtn" class="summer-btn" onclick="toggleSummer()">
         <span>☀️</span> Summer is here
+    </button>
+    -->
+
+    <!-- ACTIVE - RAIN BUTTON -->
+    <button id="toggleRainBtn" class="rain-btn" onclick="toggleRain()">
+        <span>🌧️</span> Rain Mode
     </button>
 
     <nav>
@@ -625,7 +721,8 @@
     function startFlowering() { ... }
     ===== END DISABLED ===== */
 
-    /* ===== ACTIVE - SUMMER VIBES FUNCTIONS ===== */
+    /* ===== DISABLED - SUMMER VIBES FUNCTIONS (disabled by user request, kept intact for reuse) ===== */
+    if (false) {
     let isSummer = false;
     let summerInterval;
 
@@ -749,7 +846,101 @@
         // Then gentle continuous stream
         summerInterval = setInterval(createSummerItem, 280);
     }
-    /* ===== END SUMMER VIBES FUNCTIONS ===== */
+    }
+    /* ===== END DISABLED - SUMMER VIBES FUNCTIONS ===== */
+
+    /* ===== ACTIVE - RAIN MODE FUNCTIONS ===== */
+    let isRaining = false;
+    let rainInterval;
+    let windGustTimeout;
+    let isGusting = false;
+
+    // Occasionally kick off a wind gust: rain slants harder and falls faster
+    // for a couple of seconds, then settles back to a calmer, straighter fall.
+    function scheduleNextGust() {
+        const delay = Math.random() * 5000 + 4000; // next gust in 4-9s
+        windGustTimeout = setTimeout(() => {
+            isGusting = true;
+
+            // A few visible wind streaks sweep across while gusting
+            const streaks = Math.floor(Math.random() * 3) + 2;
+            for (let i = 0; i < streaks; i++) {
+                setTimeout(createWindStreak, i * 150);
+            }
+
+            setTimeout(() => {
+                isGusting = false;
+                if (isRaining) scheduleNextGust();
+            }, Math.random() * 1500 + 1500); // gust lasts 1.5-3s
+        }, delay);
+    }
+
+    function createWindStreak() {
+        const el = document.createElement('div');
+        el.classList.add('wind-streak');
+        el.style.top = (Math.random() * 70 + 5) + 'vh';
+        el.style.width = (Math.random() * 120 + 80) + 'px';
+
+        const duration = (Math.random() * 1.5 + 1.8).toFixed(2);
+        el.style.animation = `windBlow ${duration}s linear forwards`;
+
+        document.body.appendChild(el);
+        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, parseFloat(duration) * 1000 + 200);
+    }
+
+    function createRaindrop() {
+        const el = document.createElement('div');
+        el.classList.add('rain-drop');
+
+        // During a gust, favor the windier, more diagonal fall animations
+        const roll = Math.random();
+        let anim;
+        if (isGusting) {
+            anim = roll < 0.55 ? 'rainFallGustRight' : (roll < 0.9 ? 'rainFallGustLeft' : 'rainFall');
+        } else {
+            anim = roll < 0.85 ? 'rainFall' : (roll < 0.93 ? 'rainFallGustRight' : 'rainFallGustLeft');
+        }
+
+        const height = Math.round(Math.random() * 10 + 12); // 12-22px streak
+        el.style.height = height + 'px';
+        el.style.left = (Math.random() * 100) + 'vw';
+
+        // Rain falls a little faster during gusts
+        const duration = (Math.random() * 0.5 + (isGusting ? 0.55 : 0.75)).toFixed(2);
+        const delay = (Math.random() * 0.3).toFixed(2);
+
+        el.style.animation = `${anim} ${duration}s ${delay}s linear forwards`;
+        el.style.opacity = '0';
+
+        document.body.appendChild(el);
+        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, (parseFloat(duration) + parseFloat(delay) + 0.3) * 1000);
+    }
+
+    function toggleRain() {
+        const btn = document.getElementById('toggleRainBtn');
+        isRaining = !isRaining;
+        if (isRaining) {
+            btn.classList.add('active');
+            btn.innerHTML = '<span>🌧️</span> Stop Rain';
+            startRain();
+        } else {
+            btn.classList.remove('active');
+            btn.innerHTML = '<span>🌧️</span> Rain Mode';
+            stopRain();
+        }
+    }
+
+    function startRain() {
+        rainInterval = setInterval(createRaindrop, 45);
+        scheduleNextGust();
+    }
+
+    function stopRain() {
+        clearInterval(rainInterval);
+        clearTimeout(windGustTimeout);
+        isGusting = false;
+    }
+    /* ===== END RAIN MODE FUNCTIONS ===== */
 
     </script>
 </body>
