@@ -202,7 +202,7 @@
         }
         /* ===== END DISABLED - SUMMER VIBES ===== */
 
-        /* ===== ACTIVE - RAIN MODE ===== */
+        /* ===== ACTIVE - RAIN MODE BUTTON & FULLSCREEN CANVAS ===== */
         .rain-btn {
             position: fixed;
             top: 0.8rem;
@@ -221,6 +221,8 @@
             gap: 0.5rem;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(70, 110, 165, 0.3);
+            min-width: 145px;
+            justify-content: center;
         }
 
         .rain-btn.active {
@@ -230,62 +232,17 @@
             box-shadow: 0 4px 16px rgba(74, 111, 165, 0.55);
         }
 
-        /* Individual raindrop streak */
-        .rain-drop {
+        #rainCanvas {
             position: fixed;
-            top: -40px;
-            width: 2px;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 9999;
-            background: linear-gradient(to bottom, rgba(174,214,241,0) 0%, rgba(174,214,241,0.85) 55%, rgba(226,242,254,0.9) 100%);
-            border-radius: 2px;
-            will-change: transform, opacity;
+            display: none;
         }
-
-        /* Faint horizontal streak shown briefly during wind gusts */
-        .wind-streak {
-            position: fixed;
-            top: -20px;
-            left: -10vw;
-            pointer-events: none;
-            z-index: 9998;
-            height: 1px;
-            background: linear-gradient(to right, rgba(203,224,255,0) 0%, rgba(203,224,255,0.55) 50%, rgba(203,224,255,0) 100%);
-            will-change: transform, opacity;
-        }
-
-        /* Mostly-vertical rainfall (calm conditions) */
-        @keyframes rainFall {
-            0%   { transform: translateY(-40px) translateX(0) rotate(4deg); opacity: 0; }
-            6%   { opacity: 1; }
-            92%  { opacity: 0.7; }
-            100% { transform: translateY(108vh) translateX(14px) rotate(4deg); opacity: 0; }
-        }
-
-        /* Wind-blown rainfall, slanting right - used more often during gusts */
-        @keyframes rainFallGustRight {
-            0%   { transform: translateY(-40px) translateX(0) rotate(24deg); opacity: 0; }
-            6%   { opacity: 1; }
-            88%  { opacity: 0.65; }
-            100% { transform: translateY(108vh) translateX(90px) rotate(24deg); opacity: 0; }
-        }
-
-        /* Wind-blown rainfall, slanting left */
-        @keyframes rainFallGustLeft {
-            0%   { transform: translateY(-40px) translateX(0) rotate(-22deg); opacity: 0; }
-            6%   { opacity: 1; }
-            88%  { opacity: 0.65; }
-            100% { transform: translateY(108vh) translateX(-80px) rotate(-22deg); opacity: 0; }
-        }
-
-        /* Gust streak drifting across the screen */
-        @keyframes windBlow {
-            0%   { transform: translateX(0) translateY(0); opacity: 0; }
-            15%  { opacity: 0.55; }
-            85%  { opacity: 0.4; }
-            100% { transform: translateX(120vw) translateY(8vh); opacity: 0; }
-        }
-        /* ===== END RAIN MODE ===== */
+        /* ===== END RAIN MODE CANVAS ===== */
 
         nav {
             position: fixed;
@@ -436,7 +393,7 @@
         }
 
         @media print {
-            nav, .summer-btn, .rain-btn, .dark-mode-btn { display: none; }
+            nav, .summer-btn, .rain-btn, .dark-mode-btn, #rainCanvas { display: none; }
             main { padding: 2rem; margin-top: 0; }
         }
     </style>
@@ -481,10 +438,12 @@
     </button>
     -->
 
-    <!-- ACTIVE - RAIN BUTTON -->
-    <button id="toggleRainBtn" class="rain-btn" onclick="toggleRain()">
+    <!-- ACTIVE - MULTI-INTENSITY RAIN BUTTON -->
+    <button id="toggleRainBtn" class="rain-btn" onclick="cycleRainIntensity()">
         <span>🌧️</span> Rain Mode
     </button>
+
+    <canvas id="rainCanvas"></canvas>
 
     <nav>
         <ul>
@@ -848,98 +807,202 @@
     }
     /* ===== END DISABLED - SUMMER VIBES FUNCTIONS ===== */
 
-    /* ===== ACTIVE - RAIN MODE FUNCTIONS ===== */
-    let isRaining = false;
-    let rainInterval;
-    let windGustTimeout;
-    let isGusting = false;
+    /* ===== ACTIVE - MULTI-INTENSITY CANVAS RAIN SIMULATION ===== */
+    /*
+      Physics & Optics:
+      - 4 Realistic Precipitation Regimes: Light Drizzle, Fast Drizzle, Rain, Downpour.
+      - Frequency (drop count), terminal velocity, streak length, and wind response scale dynamically.
+      - Transparent neutral specular reflections (never cartoon blue).
+      - Clicking the button cycles smoothly through:
+        Off -> Light Drizzle -> Fast Drizzle -> Rain -> Downpour -> Off
+    */
+    const rainCanvas = document.getElementById('rainCanvas');
+    const rainCtx = rainCanvas.getContext('2d');
 
-    // Occasionally kick off a wind gust: rain slants harder and falls faster
-    // for a couple of seconds, then settles back to a calmer, straighter fall.
-    function scheduleNextGust() {
-        const delay = Math.random() * 5000 + 4000; // next gust in 4-9s
-        windGustTimeout = setTimeout(() => {
-            isGusting = true;
+    const RAIN_REGIMES = [
+        { label: 'Rain Mode', count: 0, vMin: 0, vMax: 0, lMin: 0, lMax: 0, wMin: 0, wMax: 0, icon: '🌧️', windScale: 0 },
+        { label: 'Light Drizzle', count: 45, vMin: 6, vMax: 11, lMin: 6, lMax: 12, wMin: 0.4, wMax: 0.8, icon: '🌦️', windScale: 2.2 },
+        { label: 'Fast Drizzle', count: 110, vMin: 12, vMax: 18, lMin: 12, lMax: 22, wMin: 0.5, wMax: 1.0, icon: '🌧️', windScale: 3.5 },
+        { label: 'Rain', count: 220, vMin: 17, vMax: 26, lMin: 20, lMax: 36, wMin: 0.6, wMax: 1.3, icon: '🌧️', windScale: 5.0 },
+        { label: 'Downpour', count: 420, vMin: 25, vMax: 38, lMin: 32, lMax: 54, wMin: 0.8, wMax: 1.7, icon: '⛈️', windScale: 7.5 }
+    ];
 
-            // A few visible wind streaks sweep across while gusting
-            const streaks = Math.floor(Math.random() * 3) + 2;
-            for (let i = 0; i < streaks; i++) {
-                setTimeout(createWindStreak, i * 150);
+    let currentModeIndex = 0;
+    let rainAnimationId = null;
+    let drops = [];
+
+    let currentWind = 0;
+    let targetWind = 0;
+    let gustTimer = null;
+
+    function resizeRainCanvas() {
+        if (!rainCanvas) return;
+        rainCanvas.width = window.innerWidth;
+        rainCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeRainCanvas);
+    resizeRainCanvas();
+
+    function initDrop(d, isInitialSpawn = false) {
+        const regime = RAIN_REGIMES[currentModeIndex];
+        const depth = Math.random() * 0.8 + 0.2; // 0.2 (far) to 1.0 (near)
+        d.depth = depth;
+
+        d.x = Math.random() * (rainCanvas.width + 500) - 250;
+        d.y = isInitialSpawn ? Math.random() * rainCanvas.height : -Math.random() * 100 - 30;
+
+        // Velocity scaled by current intensity & depth
+        d.baseVy = (regime.vMin + depth * (regime.vMax - regime.vMin));
+
+        // Streak length in pixels (motion blur)
+        d.length = (regime.lMin + depth * (regime.lMax - regime.lMin));
+
+        // Stroke line width
+        d.width = (regime.wMin + depth * (regime.wMax - regime.wMin));
+
+        // Depth-based opacity
+        d.alpha = (depth * 0.45 + 0.15);
+    }
+
+    function scheduleNaturalGust() {
+        if (currentModeIndex === 0) return;
+
+        const wait = Math.random() * 5000 + 4000;
+        gustTimer = setTimeout(() => {
+            if (currentModeIndex === 0) return;
+
+            const regime = RAIN_REGIMES[currentModeIndex];
+            if (Math.random() < 0.35) {
+                targetWind = 0; // Calm vertical
+            } else {
+                const direction = Math.random() < 0.5 ? -1 : 1;
+                targetWind = direction * (Math.random() * regime.windScale + 1.2);
             }
 
-            setTimeout(() => {
-                isGusting = false;
-                if (isRaining) scheduleNextGust();
-            }, Math.random() * 1500 + 1500); // gust lasts 1.5-3s
-        }, delay);
+            scheduleNaturalGust();
+        }, wait);
     }
 
-    function createWindStreak() {
-        const el = document.createElement('div');
-        el.classList.add('wind-streak');
-        el.style.top = (Math.random() * 70 + 5) + 'vh';
-        el.style.width = (Math.random() * 120 + 80) + 'px';
+    function updateAndRenderRain() {
+        if (currentModeIndex === 0) return;
 
-        const duration = (Math.random() * 1.5 + 1.8).toFixed(2);
-        el.style.animation = `windBlow ${duration}s linear forwards`;
+        rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
 
-        document.body.appendChild(el);
-        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, parseFloat(duration) * 1000 + 200);
-    }
+        // Smooth atmospheric inertia towards target wind speed
+        currentWind += (targetWind - currentWind) * 0.025;
 
-    function createRaindrop() {
-        const el = document.createElement('div');
-        el.classList.add('rain-drop');
+        const isDark = document.body.classList.contains('dark');
+        const regime = RAIN_REGIMES[currentModeIndex];
 
-        // During a gust, favor the windier, more diagonal fall animations
-        const roll = Math.random();
-        let anim;
-        if (isGusting) {
-            anim = roll < 0.55 ? 'rainFallGustRight' : (roll < 0.9 ? 'rainFallGustLeft' : 'rainFall');
-        } else {
-            anim = roll < 0.85 ? 'rainFall' : (roll < 0.95 ? 'rainFallGustRight' : 'rainFallGustLeft');
+        for (let i = 0; i < drops.length; i++) {
+            const d = drops[i];
+
+            const vx = currentWind * d.depth;
+            const vy = d.baseVy;
+
+            // Normalize motion streak vector
+            const speed = Math.hypot(vx, vy);
+            const streakX = (vx / speed) * d.length;
+            const streakY = (vy / speed) * d.length;
+
+            rainCtx.beginPath();
+            rainCtx.moveTo(d.x, d.y);
+            rainCtx.lineTo(d.x - streakX, d.y - streakY);
+
+            rainCtx.lineWidth = d.width;
+            rainCtx.lineCap = 'round';
+
+            if (isDark) {
+                // Dark mode: translucent silvery specular reflections
+                rainCtx.strokeStyle = `rgba(235, 245, 255, ${d.alpha * 1.2})`;
+            } else {
+                // Light mode: realistic neutral gray water refraction
+                rainCtx.strokeStyle = `rgba(70, 85, 100, ${d.alpha * 1.4})`;
+            }
+
+            rainCtx.stroke();
+
+            // Position update
+            d.x += vx;
+            d.y += vy;
+
+            // Bounds reset
+            if (d.y > rainCanvas.height + 80 || d.x < -300 || d.x > rainCanvas.width + 300) {
+                initDrop(d, false);
+            }
         }
 
-        const height = Math.round(Math.random() * 10 + 12); // 12-22px streak
-        el.style.height = height + 'px';
-        el.style.left = (Math.random() * 100) + 'vw';
-
-        // Rain falls a little faster during gusts
-        const duration = (Math.random() * 0.5 + (isGusting ? 0.55 : 0.75)).toFixed(2);
-        const delay = (Math.random() * 0.3).toFixed(2);
-
-        el.style.animation = `${anim} ${duration}s ${delay}s linear forwards`;
-        el.style.opacity = '0';
-
-        document.body.appendChild(el);
-        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, (parseFloat(duration) + parseFloat(delay) + 0.3) * 1000);
+        rainAnimationId = requestAnimationFrame(updateAndRenderRain);
     }
 
-    function toggleRain() {
+    function setRainRegime(index) {
+        currentModeIndex = index;
         const btn = document.getElementById('toggleRainBtn');
-        isRaining = !isRaining;
-        if (isRaining) {
-            btn.classList.add('active');
-            btn.innerHTML = '<span>🌧️</span> Stop Rain';
-            startRain();
-        } else {
+        const regime = RAIN_REGIMES[currentModeIndex];
+
+        if (currentModeIndex === 0) {
             btn.classList.remove('active');
-            btn.innerHTML = '<span>🌧️</span> Rain Mode';
-            stopRain();
+            btn.innerHTML = `<span>${regime.icon}</span> ${regime.label}`;
+            stopRainSimulation();
+        } else {
+            btn.classList.add('active');
+            btn.innerHTML = `<span>${regime.icon}</span> ${regime.label}`;
+            startOrUpdateSimulation();
         }
     }
 
-    function startRain() {
-        rainInterval = setInterval(createRaindrop, 45);
-        scheduleNextGust();
+    function cycleRainIntensity() {
+        const nextIndex = (currentModeIndex + 1) % RAIN_REGIMES.length;
+        setRainRegime(nextIndex);
     }
 
-    function stopRain() {
-        clearInterval(rainInterval);
-        clearTimeout(windGustTimeout);
-        isGusting = false;
+    function startOrUpdateSimulation() {
+        resizeRainCanvas();
+        rainCanvas.style.display = 'block';
+
+        const regime = RAIN_REGIMES[currentModeIndex];
+        const targetCount = regime.count;
+
+        // Dynamically adjust droplet pool size smoothly
+        while (drops.length < targetCount) {
+            const d = {};
+            initDrop(d, true);
+            drops.push(d);
+        }
+        if (drops.length > targetCount) {
+            drops.length = targetCount;
+        }
+
+        // Re-tune existing droplets to new regime velocities
+        for (let i = 0; i < drops.length; i++) {
+            const d = drops[i];
+            d.baseVy = (regime.vMin + d.depth * (regime.vMax - regime.vMin));
+            d.length = (regime.lMin + d.depth * (regime.lMax - regime.lMin));
+            d.width = (regime.wMin + d.depth * (regime.wMax - regime.wMin));
+        }
+
+        if (!rainAnimationId) {
+            currentWind = 0;
+            targetWind = 0;
+            scheduleNaturalGust();
+            rainAnimationId = requestAnimationFrame(updateAndRenderRain);
+        }
     }
-    /* ===== END RAIN MODE FUNCTIONS ===== */
+
+    function stopRainSimulation() {
+        rainCanvas.style.display = 'none';
+        if (rainAnimationId) {
+            cancelAnimationFrame(rainAnimationId);
+            rainAnimationId = null;
+        }
+        clearTimeout(gustTimer);
+        gustTimer = null;
+        currentWind = 0;
+        targetWind = 0;
+        drops = [];
+        rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
+    }
+    /* ===== END MULTI-INTENSITY CANVAS RAIN SIMULATION ===== */
 
     </script>
 </body>
